@@ -23,6 +23,7 @@ describe("DygnifyStaking", function (accounts) {
   let dygnifyStaking;
 
   beforeEach(async () => {
+    [owner] = await ethers.getSigners();
     const Token = await ethers.getContractFactory("DygnifyToken");
     token = await Token.deploy("10000000000000000000000");
     await token.deployed();
@@ -33,7 +34,10 @@ describe("DygnifyStaking", function (accounts) {
     const transaction = await token.approve(dygnifyStaking.address,"1000000000000000000000");
     await transaction.wait();
 
-    await token.transfer("0x32ED871bfe1ad60897da493603200A2c502D4E8E","1000000000000000000000");
+    await token.transfer(owner.address,"1000000000000000000000");
+
+    const transaction1 = await dygnifyStaking.changeAPR(10);
+    await transaction1.wait();
   })
 
   it("contract should stake amount above 0", async function () {
