@@ -1,0 +1,20 @@
+.center {
+  text-align: center;
+  margin-top: 40vh;
+  color: #fff;
+}
+
+.center h1 {
+  padding: 10px 0;
+  font-size: 3rem;
+}
+
+.footer {
+  color: antiquewhite;
+  text-align: center;
+  margin-top: 40vh;
+}
+
+.footer span {
+  padding: 10px 0;
+}

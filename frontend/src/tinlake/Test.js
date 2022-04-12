@@ -129,14 +129,14 @@ const Test = () => {
           mx: "30px",
           mx: "auto",
           display: "grid",
-          gridTemplateColumns: "1.7fr 1.2fr 1fr 0.5fr",
+          gridTemplateColumns: "460px 273px 277px 64px", //"1.7fr 1.2fr 1fr 0.5fr",
           gap: "10px",
         }}
       >
-        <div className="content">Pools</div>
-        <div className="content">Investment Capacity</div>
-        <div className="content">Pool Value</div>
-        <div className="content">Senior APY</div>
+        <div>Pools</div>
+        <div>Investment Capacity</div>
+        <div>Pool Value</div>
+        <div>APY</div>
       </Stack>
       <Pools />
       <Pools />
