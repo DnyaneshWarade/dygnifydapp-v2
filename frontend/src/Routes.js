@@ -10,6 +10,13 @@ import LoadingScreen from "./sakti/loadingScreen/LoadingScreen";
 import LocationPermission from "./sakti/locationPermission/LocationPermission";
 import Overview from "./tinlake/components/overview/Overview";
 import Test from "./tinlake/Test";
+import SignIn from "./user/SignIn";
+import DashboardMain from "./user/DashboardMain";
+import Logout from "./user/Logout";
+import DashboardRepayment from "./user/DashboardRepayment";
+import LoanStatement from "./user/LoanStatement";
+import DashboardReview from "./user/DashboardReview";
+import Welcome from "./sakti/welcome/Welcome";
 
 const Routes = () => {
   return (
@@ -21,7 +28,8 @@ const Routes = () => {
         <Route exact path="/token" component={Token} />
         <Route exact path="/test" component={Test} />
         <Route exact path="/overview" component={Overview} />
-        <Route exact path="/sale" component={Mobile} />
+        <Route exact path="/sale" component={Welcome} />
+        <Route exact path="/sign" component={DashboardMain} />
       </Switch>
     </BrowserRouter>
   );

@@ -23,7 +23,7 @@
   justify-content: space-evenly;
 }
 
-.box button {
+.box > button {
   width: 100px;
   height: 90px;
   border-radius: 12px;
@@ -34,7 +34,7 @@
   font-size: 1rem;
 }
 
-.btn input {
+.btnl input {
   float: right;
   margin: 0 150px;
   height: 30px;

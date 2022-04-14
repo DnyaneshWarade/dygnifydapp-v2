@@ -14,7 +14,7 @@ const Mobile = () => {
         &nbsp; &nbsp;
         <input type="text" placeholder="+91 000-000-0000" />
       </section>
-      <button>Send OTP</button>
+      <button className="btn">Send OTP</button>
     </>
   );
 };
