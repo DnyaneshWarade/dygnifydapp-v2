@@ -17,6 +17,12 @@ import DashboardRepayment from "./user/DashboardRepayment";
 import LoanStatement from "./user/LoanStatement";
 import DashboardReview from "./user/DashboardReview";
 import Welcome from "./sakti/welcome/Welcome";
+import LandingPage from "./investor/LandingPage";
+import CompanyInfo from "./investor/CompanyInfo";
+import KYC from "./investor/KYC";
+import Wallet from "./investor/Wallet";
+import Dashboard from "./investor/Dashboard";
+import Disbursement from "./investor/Disbursement";
 
 const Routes = () => {
   return (
@@ -30,6 +36,11 @@ const Routes = () => {
         <Route exact path="/overview" component={Overview} />
         <Route exact path="/sale" component={Welcome} />
         <Route exact path="/sign" component={DashboardMain} />
+        <Route exact path="/landing" component={LandingPage} />
+        <Route exact path="/info" component={CompanyInfo} />
+        <Route exact path="/kyc" component={KYC} />
+        <Route exact path="/wallet" component={Wallet} />
+        <Route exact path="/disbursement" component={Disbursement} />
       </Switch>
     </BrowserRouter>
   );

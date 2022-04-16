@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import {
-  Avatar,
-  Box,
-  Typography,
-  Stack,
-  Link,
-  Button,
-  Popper,
-} from "@mui/material";
+import React from "react";
+import { Avatar, Box, Typography, Stack, Link, Button } from "@mui/material";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 
 const Welcome = () => {
   return (
@@ -51,17 +44,16 @@ const Welcome = () => {
         <Stack
           sx={{
             backgroundColor: "#fff",
-            border: "2px solid #7165E3",
             borderRadius: "12px",
-            width: "140px",
+            width: "180px",
             height: "140px",
             textAlign: "center",
-            // py: "35px",
             px: "20px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           <CurrencyRupeeIcon />
@@ -70,16 +62,16 @@ const Welcome = () => {
         <Stack
           sx={{
             backgroundColor: "#fff",
-            border: "2px solid #7165E3",
-            width: "140px",
+            borderRadius: "12px",
+            width: "180px",
             height: "140px",
             textAlign: "center",
-            // py: "35px",
             px: "20px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           <AccessTimeIcon />
@@ -88,26 +80,23 @@ const Welcome = () => {
         <Stack
           sx={{
             backgroundColor: "#fff",
-            border: "2px solid #7165E3",
-            width: "140px",
+            borderRadius: "12px",
+            width: "180px",
             height: "140px",
             textAlign: "center",
-            py: "35px",
             px: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
+          <CurrencyExchangeIcon />
           <Typography variant="body1">Rate of interest</Typography>
           <Typography variant="body1">21% - 24%</Typography>
         </Stack>
       </Box>
-      <Stack
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <Typography>Next due date: &nbsp;21/04/2022</Typography>
-        <Typography>Amount to be paid: &nbsp; Rs 2000 /-</Typography>
-      </Stack>
       <Stack
         sx={{
           my: "20px",
@@ -116,8 +105,8 @@ const Welcome = () => {
           justifyContent: "space-evenly",
         }}
       >
-        <Link>I want a Mini statement</Link>
-        <Button variant="contained">Pay Now</Button>
+        <Link>Tell me more</Link>
+        <Button variant="contained">Apply Now</Button>
       </Stack>
       <Box>
         <Stack
@@ -136,7 +125,7 @@ const Welcome = () => {
           </Typography>
         </Stack>
         <img
-          style={{ width: "100%", height: "185px" }}
+          style={{ width: "100%", height: "300px" }}
           src="./devi.png"
           alt="devi"
         />
