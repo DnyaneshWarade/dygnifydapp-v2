@@ -61,6 +61,4 @@ function timeConversion(start, end) {
 
 }
 
-module.exports = {
-    API: axiosHttpService
-}
+export default axiosHttpService;

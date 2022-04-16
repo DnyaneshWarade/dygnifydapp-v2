@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { ethers } from 'ethers'
 import dygToken from "../artifacts/contracts/DygnifyToken.sol/DygnifyToken.json";
+import axiosHttpService from '../services/axioscall';
+import uploadFileToIPFS from '../services/PinataIPFSOptions';
 
 const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94"
 
 function Token() {
-  const [userAccount, setUserAccount] = useState()
-  const [amount, setAmount] = useState()
+  const [userAccount, setUserAccount] = useState();
+  const [amount, setAmount] = useState();
+  const [selectedFile, setSelectedFile] = useState();
 
   async function requestAccount() {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -46,6 +49,17 @@ function Token() {
     }
   }
 
+  // On file upload (click the upload button)
+  async function onFileUpload () {
+  try {
+    console.log("Upload called"); 
+    let ipfsUploadRes = await axiosHttpService(uploadFileToIPFS(selectedFile));
+    console.log(ipfsUploadRes);
+  } catch (error) {
+    console.log(error);
+  }
+  };
+
   return (
     <div>
       <header>
@@ -55,6 +69,10 @@ function Token() {
         <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID" />
         <input onChange={e => setAmount(e.target.value)} placeholder="Amount" />
         <button onClick={approveSendCoins}>Approve</button>
+        <input type="file" onChange={ (event) => setSelectedFile(event.target.files[0]) }/>
+                <button onClick={onFileUpload}>
+                  Upload!
+                </button>
       </header>
     </div>
   );

@@ -1,5 +1,4 @@
 function amlCheck(nameArray) {
-
     var data = JSON.stringify({
         "data": "json",
         "type": [
@@ -24,5 +23,4 @@ function amlCheck(nameArray) {
     }
 
     return api_options;
-
 }
