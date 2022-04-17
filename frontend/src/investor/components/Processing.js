@@ -3,7 +3,9 @@ import { Box, Typography } from "@mui/material";
 
 const Processing = ({ handleClick }) => {
   const next = () => {
-    setTimeout(handleClick("verified"), 5000);
+    setTimeout(function () {
+      handleClick("verified")
+  }, 5000);
   };
 
   return (
@@ -19,7 +21,7 @@ const Processing = ({ handleClick }) => {
       >
         <img
           style={{ width: "110px", height: "70px", objectFit: "contain" }}
-          src="./sand-timer.png"
+          src="./sand-timer.gif"
           alt=""
         />
       </Box>

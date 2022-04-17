@@ -41,6 +41,7 @@ const Routes = () => {
         <Route exact path="/kyc" component={KYC} />
         <Route exact path="/wallet" component={Wallet} />
         <Route exact path="/disbursement" component={Disbursement} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );

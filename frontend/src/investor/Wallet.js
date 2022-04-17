@@ -1,9 +1,123 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Stack, TextField } from "@mui/material";
 import BorrowChart from "../components/charts/BorrowChart";
 import StakeChart from "../components/charts/StakeChart";
+import { requestAccount } from "../components/navbar/NavBarHelper";
+import {
+  approve,
+  stake,
+  unstake,
+  withdrawYield,
+  getTotalYield,
+  getWalletBal,
+  getWithdrawBal,
+} from "../components/transaction/TransactionHelper";
+import { ethers } from "ethers";
+
 
 const Wallet = () => {
+
+  const [values, setValues] = useState({
+    deposit: "",
+    withdraw: "",
+    yieldWithdraw: "",
+  });
+
+  const { deposit, withdraw, yieldWithdraw } = values;
+
+  const [totalYield, setTotalYield] = useState();
+  const [withdrawlBal, setWithdrawlBal] = useState();
+  const [walletBalance, setWalletBalance] = useState();
+
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  useEffect(() => {
+    getWalletBal()
+      .then((data) => {
+        setWalletBalance(data);
+      })
+      .catch(() => {
+        console.log("Error in getting wallet balance");
+      });
+  }, [walletBalance, withdrawlBal, totalYield]);
+
+  useEffect(() => {
+    getWithdrawBal()
+      .then((data) => {
+        setWithdrawlBal(data);
+      })
+      .catch(() => {
+        console.log("Error in getting withdrawl balance");
+      });
+  }, [withdrawlBal, walletBalance, totalYield]);
+
+  useEffect(() => {
+    getTotalYield()
+      .then((data) => {
+        setTotalYield(data);
+      })
+      .catch(() => {
+        console.log("Error in getting total yield");
+      });
+  }, [totalYield, walletBalance, withdrawlBal]);
+
+  const onSubmitApprove = (event) => {
+    event.preventDefault();
+    setValues({ ...values, deposit: "" });
+    const amount = ethers.utils.parseEther(values.deposit);
+    console.log("AMOUNT: " + amount);
+    approve(amount)
+      .then(() => {
+      })
+      .catch(() => {
+        console.log("Can't Approve");
+      });
+  };
+
+  const onSubmitStake = (event) => {
+    event.preventDefault();
+    setValues({ ...values, deposit: "" });
+    const amount = ethers.utils.parseEther(values.deposit);
+    console.log("AMOUNT: " + amount);
+    stake(amount)
+      .then(() => {
+        setWalletBalance(walletBalance - values.deposit);
+        // setWithdrawlBal(withdrawlBal + amount);
+      })
+      .catch(() => {
+        console.log("Can't deposit");
+      });
+  };
+
+  const onSubmitUnstake = (event) => {
+    event.preventDefault();
+    // console.log(values.withdraw);
+    setValues({ ...values, withdraw: "" });
+    const amount = ethers.utils.parseEther(values.withdraw);
+    unstake(amount)
+      .then(() => {
+        setWithdrawlBal(withdrawlBal - values.withdraw);
+      })
+      .catch(() => {
+        console.log("Can't withdraw");
+      });
+  };
+
+  const onSubmitYield = (event) => {
+    event.preventDefault();
+    // console.log(yieldWithdraw);
+    setValues({ ...values, yieldWithdraw: "" });
+    withdrawYield()
+      .then(() => {
+        setTotalYield(0);
+      })
+      .catch(() => {
+        console.log("Can't withdraw yield");
+      });
+  };
+
   return (
     <>
       <style>{"body { background-color: #7165e3 }"}</style>
@@ -47,6 +161,7 @@ const Wallet = () => {
             sx={{ backgroundColor: "#7165E3" }}
             variant="contained"
             size="large"
+            onClick={requestAccount}
           >
             Connect Wallet
           </Button>
@@ -121,13 +236,13 @@ const Wallet = () => {
           }}
         >
           <Typography sx={{ color: "#979797" }} variant="">
-            Wallet :{" "}
+            Wallet :{walletBalance}
           </Typography>
           <Typography sx={{ color: "#979797" }} variant="">
-            Balance :{" "}
+            Balance :{withdrawlBal}
           </Typography>
           <Typography sx={{ color: "#979797" }} variant="">
-            Total Yield :{" "}
+            Total Yield :{totalYield}
           </Typography>
         </Stack>
         <Stack
@@ -142,23 +257,23 @@ const Wallet = () => {
             label="Amount"
             variant="outlined"
             margin="normal"
-            // value={deposit}
-            // onChange={handleChange("deposit")}
+            value={deposit}
+            onChange={handleChange("deposit")}
           />
           <TextField
             label="Amount"
             variant="outlined"
             margin="normal"
-            // value={withdraw}
-            // onChange={handleChange("withdraw")}
+            value={withdraw}
+            onChange={handleChange("withdraw")}
           />
-          <TextField
+          {/* <TextField
             label="Amount"
             variant="outlined"
             margin="normal"
-            // value={yieldWithdraw}
-            // onChange={handleChange("yieldWithdraw")}
-          />
+            value={yieldWithdraw}
+            onChange={handleChange("yieldWithdraw")}
+          /> */}
         </Stack>
       </Box>
       <Stack
@@ -175,6 +290,15 @@ const Wallet = () => {
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
           variant="contained"
           size="large"
+          onClick={onSubmitApprove}
+        >
+          Approve
+        </Button>
+        <Button
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
+          variant="contained"
+          size="large"
+          onClick={onSubmitStake}
         >
           Deposit
         </Button>
@@ -182,6 +306,7 @@ const Wallet = () => {
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
           variant="contained"
           size="large"
+          onClick={yieldWithdraw==="" ? onSubmitUnstake : onSubmitYield}
         >
           Withdraw
         </Button>

@@ -10,7 +10,7 @@ import Profile from "./components/Profile";
 
 const KYC = () => {
   const [kyc, setKyc] = useState("profile");
-
+  const pageToNumber = {"profile":0, "identity":1,"photo": 1,"address":2,"addressProof":2,"processing":2,"verified":3};
   const handleClick = (component) => {
     setKyc(component);
   };
@@ -75,62 +75,71 @@ const KYC = () => {
           gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
         }}
       >
-        <span
-          style={{
-            width: "50px",
-            height: "50px",
-            backgroundColor: "#E5E5E5",
-            borderRadius: "50%",
-          }}
-        ></span>
+        {pageToNumber[kyc]>0 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
+            <span
+            style={{
+              width: "50px",
+              height: "50px",
+              backgroundColor: "#E5E5E5",
+              borderRadius: "50%",
+            }}
+          ></span>
+        }
         <hr
           style={{
             height: "8px",
             width: "180px",
-            backgroundColor: "#979797",
+            backgroundColor:  pageToNumber[kyc]>0 ?"white":"#979797",
             border: "none",
           }}
         />
-        <span
-          style={{
-            width: "50px",
-            height: "50px",
-            backgroundColor: "#E5E5E5",
-            borderRadius: "50%",
-          }}
-        ></span>
+        {pageToNumber[kyc]>1 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
+            <span
+            style={{
+              width: "50px",
+              height: "50px",
+              backgroundColor: "#E5E5E5",
+              borderRadius: "50%",
+            }}
+          ></span>
+        }
+
         <hr
           style={{
             height: "8px",
             width: "180px",
-            backgroundColor: "#979797",
+            backgroundColor: pageToNumber[kyc]>1 ?"white":"#979797",
             border: "none",
           }}
         />
-        <span
-          style={{
-            width: "50px",
-            height: "50px",
-            backgroundColor: "#E5E5E5",
-            borderRadius: "50%",
-          }}
-        ></span>
+        {pageToNumber[kyc]>2 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
+            <span
+            style={{
+              width: "50px",
+              height: "50px",
+              backgroundColor: "#E5E5E5",
+              borderRadius: "50%",
+            }}
+          ></span>
+        }
         <hr
           style={{
             height: "8px",
             width: "180px",
-            backgroundColor: "#979797",
+            backgroundColor: pageToNumber[kyc]>2 ?"white":"#979797",
             border: "none",
           }}
         />
-        <span
-          style={{
-            width: "50px",
-            height: "50px",
-            backgroundColor: "#E5E5E5",
-            borderRadius: "50%",
-          }}
-        ></span>
+        {pageToNumber[kyc]>2 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
+            <span
+            style={{
+              width: "50px",
+              height: "50px",
+              backgroundColor: "#E5E5E5",
+              borderRadius: "50%",
+            }}
+          ></span>
+        }
       </Box>
       {(() => {
         switch (kyc) {

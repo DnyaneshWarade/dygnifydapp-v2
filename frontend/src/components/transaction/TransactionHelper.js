@@ -3,8 +3,26 @@ import dygnifyStaking from "../../artifacts/contracts/DygnifyStaking.sol/Dygnify
 import dygnifyToken from "../../artifacts/contracts/DygnifyToken.sol/DygnifyToken.json";
 import { requestAccount } from "../navbar/NavBarHelper";
 
-const dygnifyStakingAddress = "0xf79B8AF0D963124444A6443331D9Ba00bCfED855";
-const token = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94";
+const dygnifyStakingAddress = "0x043c0B0385870AaFe42d98A2817DDA81E462Ccc9";
+const token = "0x420d23b5D7B70fFEF09A6076B7Db1176472BaA37";
+
+export async function approve(amount) {
+  if (amount <= 0 || amount <= "0" ) {
+    console.log("Amount must be greater than 0");
+  } else if (typeof window.ethereum !== "undefined") {
+    await requestAccount();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    console.log({ provider });
+    const signer = provider.getSigner();
+    const contract2 = new ethers.Contract(
+      token,
+      dygnifyToken.abi,
+      signer
+    );
+    const transaction = await contract2.approve(dygnifyStakingAddress,amount);
+    await transaction.wait()
+  }
+}
 
 export async function stake(amount) {
   if (amount <= 0 || amount <= "0" ) {
@@ -19,8 +37,9 @@ export async function stake(amount) {
       dygnifyStaking.abi,
       signer
     );
-    const transaction = await contract.stake(amount);
-    await transaction.wait();
+    const transaction1 = await contract.stake(amount);
+    await transaction1.wait();
+      
   }
 }
 
