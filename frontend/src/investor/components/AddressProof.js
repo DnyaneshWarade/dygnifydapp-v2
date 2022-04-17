@@ -6,21 +6,29 @@ const AddressProof = ({ handleClick }) => {
     <>
       <Box
         sx={{
-          maxWidth: "408px",
           backgroundColor: "#ffffff",
-          my: "28px",
+          width: "500px",
           mx: "auto",
+          my: "28px",
           borderRadius: "12px",
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-around",
+          justifyContent: "center",
           alignItems: "center",
+          mb: "28px",
         }}
-      ></Box>
+      >
+        <img
+          style={{ height: "250px", width: "250px", objectFit: "contain" }}
+          src="./utilities.png"
+          alt=""
+        />
+      </Box>
       <Stack
         sx={{
           mx: "auto",
           my: "12px",
+          mb: "22px",
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
