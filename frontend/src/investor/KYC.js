@@ -7,10 +7,11 @@ import AddressProof from "./components/AddressProof";
 import Processing from "./components/Processing";
 import Verified from "./components/Verified";
 import Profile from "./components/Profile";
+import Passport from "./components/Passport";
 
 const KYC = () => {
   const [kyc, setKyc] = useState("profile");
-  const pageToNumber = {"profile":0, "identity":1,"photo": 1,"address":2,"addressProof":2,"processing":2,"verified":3};
+  const pageToNumber = {"profile":0, "identity":1,"passport": 1,"photo": 1,"address":2,"addressProof":2,"processing":3,"verified":4};
   const handleClick = (component) => {
     setKyc(component);
   };
@@ -130,7 +131,7 @@ const KYC = () => {
             border: "none",
           }}
         />
-        {pageToNumber[kyc]>2 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
+        {pageToNumber[kyc]>3 ? <img src={"./done.gif"} style={{border:"4px solid white",borderRadius:"50%",width:"50px",height:"50px"}} className="App-logo" alt="logo" /> :
             <span
             style={{
               width: "50px",
@@ -147,6 +148,8 @@ const KYC = () => {
             return <Profile handleClick={handleClick} />;
           case "identity":
             return <Identity handleClick={handleClick} />;
+            case "passport":
+            return <Passport handleClick={handleClick} />;
           case "photo":
             return <Photo handleClick={handleClick} />;
           case "address":

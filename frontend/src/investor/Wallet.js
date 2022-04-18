@@ -36,7 +36,7 @@ const Wallet = () => {
   useEffect(() => {
     getWalletBal()
       .then((data) => {
-        setWalletBalance(data);
+        setWalletBalance(Number(data).toFixed(2));
       })
       .catch(() => {
         console.log("Error in getting wallet balance");
@@ -46,7 +46,7 @@ const Wallet = () => {
   useEffect(() => {
     getWithdrawBal()
       .then((data) => {
-        setWithdrawlBal(data);
+        setWithdrawlBal(Number(data).toFixed(2));
       })
       .catch(() => {
         console.log("Error in getting withdrawl balance");
@@ -56,7 +56,7 @@ const Wallet = () => {
   useEffect(() => {
     getTotalYield()
       .then((data) => {
-        setTotalYield(data);
+        setTotalYield(Number(data).toFixed(2));
       })
       .catch(() => {
         console.log("Error in getting total yield");
@@ -83,7 +83,8 @@ const Wallet = () => {
     console.log("AMOUNT: " + amount);
     stake(amount)
       .then(() => {
-        setWalletBalance(walletBalance - values.deposit);
+        let temp = walletBalance - values.deposit
+        setWalletBalance(temp.toFixed(2));
         // setWithdrawlBal(withdrawlBal + amount);
       })
       .catch(() => {
@@ -98,7 +99,8 @@ const Wallet = () => {
     const amount = ethers.utils.parseEther(values.withdraw);
     unstake(amount)
       .then(() => {
-        setWithdrawlBal(withdrawlBal - values.withdraw);
+        let temp = withdrawlBal - values.withdraw
+        setWithdrawlBal(temp.toFixed(2));
       })
       .catch(() => {
         console.log("Can't withdraw");
@@ -168,7 +170,6 @@ const Wallet = () => {
         </div>
       </Box>
       <Stack sx={{ color: "#ffffff", ml: "64px", mt: "28px" }}>
-        <Typography>Hello , Mr Vitalik Buterin </Typography>
       </Stack>
       <Box
         sx={{
@@ -205,6 +206,8 @@ const Wallet = () => {
         </Stack>
       </Box>
       <Box
+        
+        
         sx={{
           backgroundColor: "#ffffff",
           mx: "auto",
@@ -214,7 +217,10 @@ const Wallet = () => {
           width: "900px",
           borderRadius: "12px",
         }}
-      >
+      >  
+        <Typography variant="h6" m={2} sx={{ textAlign:"center",color: "#5B4ED4" }}>
+          Investor Statistics
+        </Typography>
         <Stack
           sx={{
             display: "grid",
@@ -224,33 +230,36 @@ const Wallet = () => {
           }}
         >
           <Typography variant="subtitle1">Deposit</Typography>
-          <Typography variant="subtitle1">Withdraw Balance </Typography>
-          <Typography variant="subtitle1">Withdraw Yield </Typography>
+          <Typography variant="subtitle1">Withdraw </Typography>
+          {/* <Typography variant="subtitle1">Withdraw Yield </Typography> */}
         </Stack>
         <Stack
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "0px 10px",
-            mx: "32px",
+            // display: "flex",
+            // gridTemplateColumns: "1fr 1fr 1fr",
+            // gap: "0px 10px",
+            // mx: "32px",
           }}
         >
-          <Typography sx={{ color: "#979797" }} variant="">
+          <div style ={{display:"flex"}} >
+            <Typography sx={{ color: "#979797", marginLeft:"30px" }} variant="">
             Wallet :{walletBalance}
           </Typography>
-          <Typography sx={{ color: "#979797" }} variant="">
+          <div style={{display:"flex", flexDirection:"column", marginLeft:"162px" }}><Typography sx={{ color: "#979797" }} variant="">
             Balance :{withdrawlBal}
           </Typography>
           <Typography sx={{ color: "#979797" }} variant="">
             Total Yield :{totalYield}
-          </Typography>
+          </Typography></div>
+          </div>
         </Stack>
         <Stack
           sx={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "0px 10px",
-            ml: "32px",
+            gap: "0px 30px",
+            ml: "34px",
+            maxWidth:"755px"
           }}
         >
           <TextField
@@ -283,11 +292,10 @@ const Wallet = () => {
           mb: "48px",
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-evenly",
         }}
       >
         <Button
-          sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" ,marginLeft:"385px",marginRight:"10px"}}
           variant="contained"
           size="large"
           onClick={onSubmitApprove}
@@ -295,7 +303,7 @@ const Wallet = () => {
           Approve
         </Button>
         <Button
-          sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" ,marginRight:"35px"}}
           variant="contained"
           size="large"
           onClick={onSubmitStake}

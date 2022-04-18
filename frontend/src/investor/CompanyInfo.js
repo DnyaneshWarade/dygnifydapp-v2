@@ -4,13 +4,14 @@ import { Box, Button, Typography, Stack, Divider, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
+import "./CompanyInfo.css"
 import uploadFileToIPFS from '../services/PinataIPFSOptions';
 const axios = require('axios');
 
-const REACT_APP_PINATA_API_KEY = "bd910e460ee4b6ef0519"
-const REACT_APP_PINATA_API_SECRET = "38f736a6d364857d02414d490277de4952207f74d1f495c4f2158332639120b7"
-const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94"
-const NFT_minter = "0xbEfC9040e1cA8B224318e4f9BcE9E3e928471D37"
+const REACT_APP_PINATA_API_KEY = "bd910e460ee4b6ef0519";
+const REACT_APP_PINATA_API_SECRET = "38f736a6d364857d02414d490277de4952207f74d1f495c4f2158332639120b7";
+const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94";
+const NFT_minter = "0xbEfC9040e1cA8B224318e4f9BcE9E3e928471D37";
 
 //metadata to ipfs
 const pinJSONToIPFS = async(JSONBody) => {
@@ -50,7 +51,7 @@ const CompanyInfo = () => {
 
   
 
-  async function mint_NFT(tokenURI) {
+  async function mint_NFT(tokenURI,imageURI) {
     if (typeof window.ethereum !== 'undefined') {
       await requestAccount()
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -59,7 +60,7 @@ const CompanyInfo = () => {
       const transaction = await contract.mint(tokenURI);
       await transaction.wait();
       console.log(`${tokenURI} has minted sucessfully.`);
-      alert(`${tokenURI} has minted sucessfully.`);
+      setTokenURI(imageURI)
     }
   }
 
@@ -84,9 +85,9 @@ const CompanyInfo = () => {
           }
       } 
       const tokenURI = pinataResponse.pinataUrl;  
-      console.log(tokenURI)
-      setTokenURI(tokenURI)
-      mint_NFT(tokenURI)
+      console.log(tokenURI);
+      mint_NFT(tokenURI,"https://gateway.pinata.cloud/ipfs/"+metadata.imageHash);
+      
     } catch (error) {
       console.log(error);
     }
@@ -168,7 +169,7 @@ const CompanyInfo = () => {
           }}
         >
           <img
-            style={{ width: "88px", height: "56px" }}
+            style={{ width: "88px", height: "77px" }}
             src="./indianWomen.png"
             alt=""
           />
@@ -241,7 +242,7 @@ const CompanyInfo = () => {
             textAlign: "justify",
           }}
         >
-          <Typography mb={1} variant="subtitle2">
+          <Typography variant="h6">
             ABC Finance Private Limited
           </Typography>
           <Typography variant="body2">
@@ -333,7 +334,7 @@ const CompanyInfo = () => {
             }}
           >
             <Typography>Available Liquidity</Typography>
-            <Typography>5,60,000</Typography>
+            <Typography>5,60,000 INRC</Typography>
           </Stack>
         </Card>
       </Box>
@@ -346,7 +347,7 @@ const CompanyInfo = () => {
           color: "#ffffff",
         }}
       >
-        <Typography variant="h6">Upload Collateral</Typography>
+        <Typography variant="h6">Collateral</Typography>
       </Stack>
       <Box>
         <Card
@@ -362,10 +363,12 @@ const CompanyInfo = () => {
             textAlign: "justify",
           }}
         >
+          { tokenURI === "" ?
+          <div style={{display:"flex" , flexDirection : "column"}}>
           <Typography mb={1} variant="subtitle2">
-            Upload Document to IPFS and Mint
+          Upload collateral document for converting to a unique NFT
           </Typography>
-          <input type="file" onChange={ (event) => setSelectedFile(event.target.files[0]) }/>
+          <input type="file" style={{maxWidth:"500px"}} onChange={ (event) => setSelectedFile(event.target.files[0]) } class="custom-file-upload" />
           <Button
             sx={{ backgroundColor: "#7165E3" ,width:"300px",marginTop:"10px"}}
             variant="contained"
@@ -373,12 +376,13 @@ const CompanyInfo = () => {
             onClick={onFileUpload}
           >
             Mint
-          </Button>
-          
+          </Button> </div>
+          : <div><h4>View your minted NFT here : </h4><a href={tokenURI}>{tokenURI}</a></div>
+          }
         </Card>
       </Box>
     </>
   );
 };
-
+ 
 export default CompanyInfo;

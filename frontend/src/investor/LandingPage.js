@@ -57,14 +57,15 @@ const LandingPage = () => {
           textAlign: "center",
           color: "#ffffff",
           mt: "32px",
+          
         }}
       >
-        <Typography variant="subtitle1">
-          Democratizing access to credit for micro and small women entrepreneurs
+        <Typography variant="h4">
+        <Typography variant="h4">Democratizing access to credit for micro and small women entrepreneurs</Typography>
           through a Blockchain based DeFi protocol
-        </Typography>
+        </Typography><br/>
       </Stack>
-      <Stack sx={{ float: "right", mr: "265px" }}>
+      <Stack sx={{ float: "right", mr: "47%" }}>
         <Link color="#ffffff">Tell me more</Link>
       </Stack>
       <Box
@@ -92,19 +93,15 @@ const LandingPage = () => {
       </Box>
       <Stack
         sx={{
-          mt: "36px",
-          mx: "auto",
-          px: "10px",
           color: "#ffffff",
-          textAlign: "center",
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
         }}
       >
-        <Typography variant="subtitle1">Opportunity</Typography>
-        <Typography variant="subtitle1">Investment</Typography>
-        <Typography variant="subtitle1">Value</Typography>
-        <Typography variant="subtitle1">APY</Typography>
+        <div style={{display:"flex" ,}} >
+          <Typography variant="subtitle1" style={{marginLeft :"300px"}} >Opportunity</Typography>
+          <Typography variant="subtitle1" style={{marginLeft :"380px"}} >Investment</Typography>
+          <Typography variant="subtitle1" style={{marginLeft :"210px"}} >Value</Typography>
+          <Typography variant="subtitle1" style={{marginLeft :"220px"}} >APY</Typography>
+        </div>
       </Stack>
       <Box>
         <Company
