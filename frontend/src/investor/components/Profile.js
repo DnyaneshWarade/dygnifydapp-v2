@@ -25,6 +25,19 @@ const Profile = ({ handleClick }) => {
             justifyItems: "center",
           }}
         >
+          <Typography variant="subtitle1">Full Name</Typography>
+          <TextField label="Full Name" variant="outlined"/>
+        </Stack>
+        <Stack
+          sx={{
+            color: "#979797",
+            my: "10px",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            alignItems: "center",
+            justifyItems: "center",
+          }}
+        >
           <Typography variant="subtitle1">Email id</Typography>
           <TextField label="email" variant="outlined" />
         </Stack>

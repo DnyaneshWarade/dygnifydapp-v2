@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
 import "./CompanyInfo.css"
-import uploadFileToIPFS from '../services/PinataIPFSOptions';
+import { uploadFileToIPFS } from '../services/PinataIPFSOptions';
 const axios = require('axios');
 
 const REACT_APP_PINATA_API_KEY = "bd910e460ee4b6ef0519";
