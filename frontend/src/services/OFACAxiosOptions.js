@@ -1,3 +1,6 @@
+const REACT_APP_OFAC_MIN_SCORE = "90"
+const REACT_APP_NAYAONE_SANDPIT_KEY = "c4064533-8be7-4b6f-883f-f8650911085e"
+
 export const amlCheck = (name, digitalCurrencyAddress) => {
   if (!name) {
     return null;
@@ -13,7 +16,7 @@ export const amlCheck = (name, digitalCurrencyAddress) => {
     "cases": [ caseData ],
     "source": [ "SDN" ],
     "informalName": true,
-    "minScore": process.env.REACT_APP_OFAC_MIN_SCORE,
+    "minScore": REACT_APP_OFAC_MIN_SCORE,
     "includeAlias": true
   });
 
@@ -21,7 +24,7 @@ export const amlCheck = (name, digitalCurrencyAddress) => {
     method: 'post',
     url: 'https://ofac.air.nayaone.com/v3',
     headers: {
-      'sandpit-key': process.env.REACT_APP_NAYAONE_SANDPIT_KEY,
+      'sandpit-key': REACT_APP_NAYAONE_SANDPIT_KEY,
       'content-type': 'application/json'
     },
     data: data

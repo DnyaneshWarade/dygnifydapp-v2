@@ -2,6 +2,12 @@ import React from "react";
 import { Box, Button, Link, Stack, TextField, Typography } from "@mui/material";
 
 const Profile = ({ handleClick }) => {
+  const [fullName,setFullName] = React.useState("");
+  function handleName(event){
+    event.preventDefault()
+    setFullName( event.target.value);
+    
+  }
   return (
     <>
       <Box
@@ -26,7 +32,7 @@ const Profile = ({ handleClick }) => {
           }}
         >
           <Typography variant="subtitle1">Full Name</Typography>
-          <TextField label="Full Name" variant="outlined"/>
+          <TextField label="Full Name" variant="outlined" value={fullName} onChange={handleName}/>
         </Stack>
         <Stack
           sx={{
@@ -92,7 +98,7 @@ const Profile = ({ handleClick }) => {
             color: "#7165E3",
           }}
           variant="contained"
-          onClick={() => handleClick("identity")}
+          onClick={() => handleClick("identity",fullName)}
         >
           Next
         </Button>

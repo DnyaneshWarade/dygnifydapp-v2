@@ -4,7 +4,6 @@ import { Box, Button, Typography, Stack, Divider, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
-import "./CompanyInfo.css"
 import { uploadFileToIPFS } from '../services/PinataIPFSOptions';
 const axios = require('axios');
 

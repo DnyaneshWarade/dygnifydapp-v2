@@ -9,11 +9,17 @@ import Verified from "./components/Verified";
 import Profile from "./components/Profile";
 import Passport from "./components/Passport";
 
+
 const KYC = () => {
   const [kyc, setKyc] = useState("profile");
+  const [fullName,setFullName]= useState("")
+  const [verified,setVerified]= useState()
+
   const pageToNumber = {"profile":0, "identity":1,"passport": 1,"photo": 1,"address":2,"addressProof":2,"processing":3,"verified":4};
-  const handleClick = (component) => {
+  const handleClick = (component,fullname,status) => {
     setKyc(component);
+    if(kyc==="profile"){setFullName(fullname); }
+    if(kyc==="processing"){setVerified(status); }
   };
 
   return (
@@ -157,9 +163,9 @@ const KYC = () => {
           case "addressProof":
             return <AddressProof handleClick={handleClick} />;
           case "processing":
-            return <Processing handleClick={handleClick} />;
+            return <Processing handleClick={handleClick} fullName={fullName} />;
           case "verified":
-            return <Verified handleClick={handleClick} />;
+            return <Verified handleClick={handleClick} verified={verified}/>;
           default:
             return <Profile />;
         }

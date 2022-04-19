@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Verified = () => {
+const Verified = ({verified}) => {
   return (
     <>
       <Box
@@ -28,7 +28,7 @@ const Verified = () => {
         }}
         variant="h4"
       >
-        Verified !!
+        {verified===true ? "Verified !!" : "verification Failed"}
       </Typography>
       <Button
         sx={{
