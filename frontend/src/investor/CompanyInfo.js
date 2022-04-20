@@ -167,12 +167,26 @@ const CompanyInfo = () => {
             alignItems: "center",
           }}
         >
+          <Box>
+        <Card
+          sx={{
+            mb: "5px",
+            maxWidth: 100,
+            py: "2px",
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "justify",
+          }}
+        >
           <img
             style={{ width: "88px", height: "77px" }}
             src="./indianWomen.png"
             alt=""
           />
-          <Typography>Income Generating Loans</Typography>
+          </Card>
+          </Box>
+          <Typography ml={2}>Income Generating Loans</Typography>
         </Stack>
         <Button
           sx={{ backgroundColor: "#ffffff", color: "#000000" }}

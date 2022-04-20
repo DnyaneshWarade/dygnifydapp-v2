@@ -73,10 +73,10 @@ const Address = ({handleClick}) => {
               label="Address"
               onChange={handleChangeAddress}
             >
-              <MenuItem value={1}>Utility Bill</MenuItem>
+              <MenuItem value={1}>Passport</MenuItem>
               <MenuItem value={2}>Driving Licence</MenuItem>
-              <MenuItem value={3}>Aadhar Card</MenuItem>
-              <MenuItem value={4}>Bank Account</MenuItem>
+              <MenuItem value={3}>Utility Bill</MenuItem>
+              <MenuItem value={4}>Bank Statement</MenuItem>
             </Select>
           </FormControl>
         </Stack>
