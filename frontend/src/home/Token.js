@@ -5,7 +5,7 @@ import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
 import { uploadFileToIPFS } from '../services/PinataIPFSOptions';
 import { amlCheck } from '../services/OFACAxiosOptions';
-const axios = require('axios');
+import axios from 'axios';
 
 const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94"
 const NFT_minter = "0xbEfC9040e1cA8B224318e4f9BcE9E3e928471D37"
@@ -36,6 +36,7 @@ const pinJSONToIPFS = async (JSONBody) => {
 
     });
 };
+
 function Token() {
   const [userAccount, setUserAccount] = useState();
   const [amount, setAmount] = useState();
@@ -134,7 +135,7 @@ function Token() {
       console.log("Error " + amlCheckRes.res["error"]);
       if (amlCheckRes.code === 200 && amlCheckRes.res["error"] === false) {
         if (amlCheckRes.res["matches"][name][0] &&
-             amlCheckRes.res["matches"][name][0]["score"] >= process.env.REACT_APP_OFAC_MIN_SCORE) {
+          amlCheckRes.res["matches"][name][0]["score"] >= process.env.REACT_APP_OFAC_MIN_SCORE) {
           return true;
         } else {
           return false;
@@ -145,16 +146,17 @@ function Token() {
     } catch (error) {
       console.log(error);
     }
+  }
 
   // On file upload (click the upload button)
-  async function onFileUpload () {
-  try {
-    console.log("Upload called"); 
-    let ipfsUploadRes = await axiosHttpService(uploadFileToIPFS(selectedFile));
-    console.log(ipfsUploadRes);
-  } catch (error) {
-    console.log(error);
-  }
+  async function onFileUpload() {
+    try {
+      console.log("Upload called");
+      let ipfsUploadRes = await axiosHttpService(uploadFileToIPFS(selectedFile));
+      console.log(ipfsUploadRes);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -180,7 +182,7 @@ function Token() {
         <button onClick={() => onCheckAML(nameForAMLCheck)}>
           Check
         </button>
-       </header>
+      </header>
     </div>
   );
 }
