@@ -5,11 +5,8 @@ import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
 import { uploadFileToIPFS } from '../services/PinataIPFSOptions';
 import { amlCheck } from '../services/OFACAxiosOptions';
-
 const axios = require('axios');
 
-const REACT_APP_PINATA_API_KEY = "bd910e460ee4b6ef0519"
-const REACT_APP_PINATA_API_SECRET = "38f736a6d364857d02414d490277de4952207f74d1f495c4f2158332639120b7"
 const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94"
 const NFT_minter = "0xbEfC9040e1cA8B224318e4f9BcE9E3e928471D37"
 
@@ -20,8 +17,8 @@ const pinJSONToIPFS = async (JSONBody) => {
   return axios
     .post(url, JSONBody, {
       headers: {
-        pinata_api_key: REACT_APP_PINATA_API_KEY,
-        pinata_secret_api_key: REACT_APP_PINATA_API_SECRET,
+        pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+        pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET,
       }
     })
     .then(function (response) {
@@ -148,6 +145,16 @@ function Token() {
     } catch (error) {
       console.log(error);
     }
+
+  // On file upload (click the upload button)
+  async function onFileUpload () {
+  try {
+    console.log("Upload called"); 
+    let ipfsUploadRes = await axiosHttpService(uploadFileToIPFS(selectedFile));
+    console.log(ipfsUploadRes);
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   return (
@@ -173,7 +180,7 @@ function Token() {
         <button onClick={() => onCheckAML(nameForAMLCheck)}>
           Check
         </button>
-      </header>
+       </header>
     </div>
   );
 }
