@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Button, Stack, TextField } from "@mui/material";
+import { Box, Typography, Button, Stack, TextField, Card } from "@mui/material";
 import BorrowChart from "../components/charts/BorrowChart";
 import StakeChart from "../components/charts/StakeChart";
 import { requestAccount } from "../components/navbar/NavBarHelper";
@@ -181,12 +181,26 @@ const Wallet = () => {
             marginLeft: "330px"
           }}
         >
+          <Box>
+        <Card
+          sx={{
+            mb: "5px",
+            maxWidth: 100,
+            py: "2px",
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            textAlign: "justify",
+          }}
+        >
           <img
             style={{ width: "88px", height: "77px" }}
             src="./indianWomen.png"
             alt=""
           />
-          <Typography>Income Generating Loans</Typography>
+          </Card>
+          </Box>
+          <Typography ml={2}>Income Generating Loans</Typography>
         </Stack>
       <Box
         sx={{
@@ -246,7 +260,7 @@ const Wallet = () => {
           }}
         >
           <Typography variant="subtitle1">Deposit</Typography>
-          <Typography variant="subtitle1" style={{marginLeft:"310px"}}>Withdraw </Typography>
+          <Typography variant="subtitle1" style={{marginLeft:"273px"}}>Withdraw</Typography>
           {/* <Typography variant="subtitle1">Withdraw Yield </Typography> */}
         </Stack>
         <Stack
@@ -261,7 +275,7 @@ const Wallet = () => {
             <Typography sx={{ color: "#979797", marginLeft:"110px" }} variant="">
             Wallet :{walletBalance}
           </Typography>
-          <div style={{display:"flex", flexDirection:"column", marginLeft:"335px" }}><Typography sx={{ color: "#979797" }} variant="">
+          <div style={{display:"flex", flexDirection:"column", marginLeft:"343px" }}><Typography sx={{ color: "#979797" }} variant="">
             Balance :{withdrawlBal}
           </Typography>
           <Typography sx={{ color: "#979797" }} variant="">
@@ -313,7 +327,7 @@ const Wallet = () => {
         }}
       >
         <Button
-          sx={{ backgroundColor: "#ffffff", color: "#7165E3" ,marginLeft:"465px",marginRight:"10px"}}
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" ,marginLeft:"410px",marginRight:"10px"}}
           variant="contained"
           size="large"
           onClick={onSubmitApprove}
@@ -333,7 +347,7 @@ const Wallet = () => {
           variant="contained"
           size="large"
           onClick={yieldWithdraw==="" ? onSubmitUnstake : onSubmitYield}
-          style={{marginLeft:"180px"}}
+          style={{marginLeft:"160px"}}
         >
           Withdraw
         </Button>

@@ -97,7 +97,7 @@ const LandingPage = () => {
         }}
       >
         <div style={{display:"flex" ,}} >
-          <Typography variant="subtitle1" style={{marginLeft :"300px"}} >Opportunity</Typography>
+          <Typography variant="subtitle1" style={{marginLeft :"230px"}} >Opportunity</Typography>
           <Typography variant="subtitle1" style={{marginLeft :"380px"}} >Investment</Typography>
           <Typography variant="subtitle1" style={{marginLeft :"210px"}} >Value</Typography>
           <Typography variant="subtitle1" style={{marginLeft :"220px"}} >APY</Typography>
