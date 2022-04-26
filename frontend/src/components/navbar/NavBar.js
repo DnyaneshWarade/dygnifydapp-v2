@@ -21,7 +21,7 @@ const NavBar = () => {
     <>
       <section className="nav">
         <Link to="/">
-          <Button variant="outlined">{" Home"}</Button>
+          {/* <Button variant="outlined">{" Home"}</Button> */}
         </Link>
         <Button
           variant="outlined"

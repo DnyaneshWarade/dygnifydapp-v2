@@ -14,6 +14,7 @@ const Home = () => {
   const form = () => {
     return (
       <div className="box">
+        
         <Sidebar></Sidebar>
         <aside className="right">
           <NavBar />

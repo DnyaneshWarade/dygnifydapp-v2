@@ -11,7 +11,7 @@ const LocationPermission = () => {
       <div className="image">
         <img src="./location.png" alt="" />
       </div>
-      <section className="button">
+      <section className="buttonlp">
         <input className="btn" type="button" value="Maybe Later" />
         <input className="btn" type="button" value="Allow" />
       </section>

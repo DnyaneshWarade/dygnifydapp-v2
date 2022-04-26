@@ -20,7 +20,7 @@ input {
   font-size: large;
 }
 
-button {
+.btn {
   background-color: #7165e3;
   border: none;
   width: 100px;

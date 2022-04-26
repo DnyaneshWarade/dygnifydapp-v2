@@ -11,19 +11,19 @@ const ChooseLanguage = () => {
       <section className="lang">
         <div className="row">
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="./hindiLetter.png" alt="" />
               <p>Hindi</p>
             </button>
           </div>
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="./englishLetter.png" alt="" />
               <p>English</p>
             </button>
           </div>
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="./odiaLetter.png" alt="" />
               <p>Odia</p>
             </button>
@@ -31,26 +31,26 @@ const ChooseLanguage = () => {
         </div>
         <div className="row">
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="kannadaLetter.png" alt="" />
               <p>Kannada</p>
             </button>
           </div>
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="tamilLetter.png" alt="" />
               <p>Tamil</p>
             </button>
           </div>
           <div className="box">
-            <button>
+            <button className="box__btn">
               <img src="./bengaliLetter.png" alt="" />
               <p>Bengali</p>
             </button>
           </div>
         </div>
       </section>
-      <div className="btn">
+      <div className="btnl">
         <input type="button" value="Continue" />
       </div>
     </>

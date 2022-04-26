@@ -24,7 +24,11 @@ const Pools = () => {
           }}
         >
           <div className="content">
-            <img src="./rwa-market-icon.png" alt="" />
+            <img
+              style={{ width: "40px", height: "40px" }}
+              src="./rwa-market-icon.png"
+              alt=""
+            />
             <div className="text">
               <p> Branch Series 3(1754 Factory)</p>
               <p>Emerging market customer loans</p>

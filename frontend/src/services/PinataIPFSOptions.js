@@ -1,6 +1,6 @@
+const axios = require('axios');
 
-
-function testAuthentication() {
+export const testAuthentication = () => {
     var api_options = {
         method: 'get',
         url: 'https://api.pinata.cloud/data/testAuthentication',
@@ -13,7 +13,7 @@ function testAuthentication() {
     return api_options;
 }
 
-function uploadFileToIPFS(stream) {
+export const uploadFileToIPFS = (stream) => {
   const data = new FormData();
   data.append('file', stream);
 
@@ -31,4 +31,28 @@ function uploadFileToIPFS(stream) {
   return api_options;
 }
 
-export default uploadFileToIPFS;
+export const pinJSONToIPFS = (JSONBody) => {
+  const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+  //making axios POST request to Pinata ⬇️
+  return axios 
+      .post(url, JSONBody, {
+          headers: {
+              pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+              pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET,
+          }
+      })
+      .then(function (response) {
+         return {
+             success: true,
+             pinataUrl: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+         };
+      })
+      .catch(function (error) {
+          console.log(error)
+          return {
+              success: false,
+              message: error.message,
+          }
+
+  });
+};

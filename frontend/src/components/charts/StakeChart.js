@@ -57,8 +57,8 @@ const StakeChart = () => {
   return React.createElement(
     AreaChart,
     {
-      width: 450,
-      height: 250,
+      width: 400,
+      height: 200,
       data: data,
       margin: {
         top: 10,
