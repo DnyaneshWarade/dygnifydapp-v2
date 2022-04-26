@@ -28,7 +28,7 @@ const Verified = ({verified}) => {
         }}
         variant="h4"
       >
-        {verified===true ? "Verified !!" : "verification Failed"}
+        {verified===true ? "Verified !!" : "Verification Failed"}
       </Typography>
       <Button
         sx={{

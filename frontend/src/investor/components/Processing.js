@@ -35,7 +35,6 @@ const Processing = ({ handleClick,fullName }) => {
 
   const next = () => {
    let result = onCheckAML();
-   result =true;
    handleClick("verified","",result)
     
   };
