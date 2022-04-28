@@ -1,8 +1,9 @@
-function sendMobileOtpOption(mobileNumber) {
+function sendMobileOtpOption(countryCode, mobileNumber) {
 
     var data = JSON.stringify({
         "consent": "Y",
-        "mobile": mobileNumber
+        "mobile": mobileNumber,
+        'countryCode': countryCode
     });
 
     var api_options = {

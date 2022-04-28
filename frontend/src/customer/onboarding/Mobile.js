@@ -1,4 +1,6 @@
-import React from "react";
+import { React, useState } from "react";
+import axiosHttpService from '../../services/axioscall';
+import { sendMobileOtpOption } from '../../services/karzaAxiosOptions';
 import {
   Box,
   Stack,
@@ -8,8 +10,38 @@ import {
   TextField,
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
+import { useHistory } from "react-router-dom";
 
 const Mobile = () => {
+  const [phone, setPhoneNo] = useState();
+  const history = useHistory(); 
+  
+  function sanitizePhoneNo() {
+    // Remove additional symbols from the phone number
+    let sanitizedPhoneNo = phone.replace('+', '').replace('-', '');
+    const parsedPhoneNo = sanitizedPhoneNo.split(' ');
+    return { 'CountryCode': parsedPhoneNo[0], 'PhoneNo': parsedPhoneNo[1] };
+  }
+
+  async function onSendCodeClicked() {
+    try {
+      // Sanitize the phone number first and then send OTP
+      let { CountryCode, PhoneNo } = sanitizePhoneNo();
+      let mobileOTPRes = await axiosHttpService(sendMobileOtpOption(CountryCode, PhoneNo));
+      if (mobileOTPRes.code === 200 && mobileOTPRes.res['status-code'] === '101') {
+        // Redirect to Verification page
+        history.push('./verifyNumber');
+      } else {
+        //Showcase error 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleOnChange(value) {
+    setPhoneNo(value);
+  }
   return (
     <>
       <Box
@@ -66,7 +98,7 @@ const Mobile = () => {
         >
           Mobile Number
         </Typography>
-        <MuiPhoneNumber defaultCountry={"in"} />
+        <MuiPhoneNumber defaultCountry={"in"} onlyCountries={['in']} onChange={handleOnChange} />
       </Container>
       <Container
         maxWidth="sm"
@@ -80,6 +112,7 @@ const Mobile = () => {
             background: "#7165E3",
             float: "right",
           }}
+          onClick={onSendCodeClicked}
         >
           Send Code
         </Button>
