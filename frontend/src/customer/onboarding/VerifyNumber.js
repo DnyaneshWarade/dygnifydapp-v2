@@ -4,10 +4,11 @@ import {
   Input,
   Typography,
   Stack,
-  Link,
   Button,
   TextField,
+  Container,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const VerifyNumber = () => {
   return (
@@ -15,16 +16,16 @@ const VerifyNumber = () => {
       <Box
         sx={{
           backgroundColor: "#7165E3",
-          height: "150px",
+          height: "140px",
           textAlign: "center",
-          pt: "50px",
+          pt: "35px",
           color: "#fff",
           borderEndStartRadius: "12px",
           borderEndEndRadius: "16px",
         }}
       >
-        <Typography variant="h6">Verify Account</Typography>
-        <Typography variant="body1">
+        <Typography variant="h4">Verify Account</Typography>
+        <Typography variant="body2">
           Enter 4-digit Code we have sent to at +91 000 000 0000
         </Typography>
       </Box>
@@ -36,12 +37,37 @@ const VerifyNumber = () => {
           flexDirection: "row",
           justifyContent: "space-evenly",
           maxWidth: "600px",
+          gap: "0px 16px",
         }}
       >
-        <Input placeholder="0" />
-        <Input placeholder="0" />
-        <Input placeholder="0" />
-        <Input placeholder="0" />
+        <Input
+          sx={{
+            maxWidth: "100px",
+            pl: "45px",
+          }}
+          placeholder="0"
+        />
+        <Input
+          sx={{
+            maxWidth: "100px",
+            pl: "45px",
+          }}
+          placeholder="0"
+        />
+        <Input
+          sx={{
+            maxWidth: "100px",
+            pl: "45px",
+          }}
+          placeholder="0"
+        />
+        <Input
+          sx={{
+            maxWidth: "100px",
+            pl: "45px",
+          }}
+          placeholder="0"
+        />
       </Box>
       <Stack
         sx={{
@@ -53,7 +79,7 @@ const VerifyNumber = () => {
       >
         <Typography>Didn't receive code?</Typography>
         <Typography>
-          <Link>Resend Code</Link>
+          <Link to="#">Resend Code</Link>
         </Typography>
       </Stack>
       <Stack
@@ -66,16 +92,22 @@ const VerifyNumber = () => {
         <TextField label="Referral Code (Optional)" variant="standard" />
         <TextField label="Agent ID (Optional)" variant="standard" />
       </Stack>
-      <Button
+      <Container
+        maxWidth="sm"
         sx={{
-          float: "right",
-          mt: "130px",
-          mr: "100px",
+          mt: "80px",
         }}
-        variant="contained"
       >
-        Proceed
-      </Button>
+        <Button
+          variant="contained"
+          sx={{
+            background: "#7165E3",
+            float: "right",
+          }}
+        >
+          Proceed
+        </Button>
+      </Container>
     </>
   );
 };
