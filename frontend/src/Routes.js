@@ -43,6 +43,7 @@ const Routes = () => {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/disbursement" component={Disbursement} />
         <Route exact path="/sale" component={Docs} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );

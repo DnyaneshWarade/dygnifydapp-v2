@@ -2,6 +2,15 @@ import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 
 const Disbursement = () => {
+  const [isDisburse, setDisburse] = React.useState(0);
+
+  function handleDisburse(){
+    setDisburse(1);
+    setTimeout(function () {
+      setDisburse(2);
+    }, 5000);
+  }
+
   return (
     <>
       <style>{"body { background-color: #7165e3 }"}</style>
@@ -128,7 +137,7 @@ const Disbursement = () => {
               <Typography variant="subtitle2">
                 Income Generating Loans
               </Typography>
-              <Typography variant="body2">Opportunity Debit</Typography>
+              <Typography variant="body2">Opportunity</Typography>
             </Stack>
             <Typography>INRC 10,00,000 </Typography>
           </Box>
@@ -206,7 +215,13 @@ const Disbursement = () => {
                 Name : ABC Finance Private Ltd
               </Typography>
             </Stack>
-            <Typography sx={{ ml: "200px" }}>INR 10,00,000</Typography>
+            {isDisburse===2 ? <Typography sx={{ ml: "200px" }}>INR 10,00,000</Typography> : (isDisburse===1 ? 
+             <img
+                style={{ width: "110px", height: "70px", objectFit: "contain" }}
+                src="./sand-timer.gif"
+                alt=""
+              />
+            : null) }
           </Box>
         </Box>
         <img
@@ -214,16 +229,29 @@ const Disbursement = () => {
           src="./close-bracket.png"
           alt=""
         />
-        <img
-          style={{
-            width: "200px",
-            height: "400px",
-            objectFit: "contain",
-            marginLeft: "10px",
-          }}
-          src="./smart-contracts.png"
-          alt=""
-        />
+        <div>
+          <button 
+            style={{
+              width:"240px",
+              height : "35px",
+              fontWeight:"bold",
+              fontSize:"18px",
+              backgroundColor :"white",
+              color : "#7165e3"
+            }}
+            onClick={handleDisburse}
+          >Disburse</button>
+          <img
+            style={{
+              width: "200px",
+              height: "400px",
+              objectFit: "contain",
+              marginLeft: "10px",
+            }}
+            src="./smart-contracts.png"
+            alt=""
+          />
+        </div>  
       </Box>
     </>
   );
