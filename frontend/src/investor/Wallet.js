@@ -62,7 +62,7 @@ const Wallet = () => {
           mt: "22px",
           py: "16px",
           px: "16px",
-          width: "900px",
+          maxWidth: "900px",
           borderRadius: "12px",
           textAlign: "center",
           alignItems: "center",
@@ -132,10 +132,14 @@ const Wallet = () => {
         </Stack>
         <Stack
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "0px 10px",
+            // display: "grid",
+            // gridTemplateColumns: "1fr 1fr 1fr",
+            // gap: "0px 10px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
             ml: "32px",
+            mr: "60px",
           }}
         >
           <TextField
@@ -152,13 +156,13 @@ const Wallet = () => {
             // value={withdraw}
             // onChange={handleChange("withdraw")}
           />
-          <TextField
+          {/* <TextField
             label="Amount"
             variant="outlined"
             margin="normal"
             // value={yieldWithdraw}
             // onChange={handleChange("yieldWithdraw")}
-          />
+          /> */}
         </Stack>
       </Box>
       <Stack
@@ -171,6 +175,13 @@ const Wallet = () => {
           justifyContent: "space-evenly",
         }}
       >
+        <Button
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
+          variant="contained"
+          size="large"
+        >
+          Approve
+        </Button>
         <Button
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
           variant="contained"
