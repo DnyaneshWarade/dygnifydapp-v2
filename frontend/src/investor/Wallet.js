@@ -209,7 +209,7 @@ const Wallet = () => {
           mt: "22px",
           py: "16px",
           px: "16px",
-          width: "900px",
+          maxWidth: "900px",
           borderRadius: "12px",
           textAlign: "center",
           alignItems: "center",
@@ -287,11 +287,14 @@ const Wallet = () => {
           sx={{
             // display: "grid",
             // gridTemplateColumns: "1fr 1fr 1fr",
-            // gap: "0px 30px",
-            // ml: "34px",
-            // maxWidth:"755px"
+            // gap: "0px 10px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            ml: "32px",
+            mr: "60px",
           }}
-        ><div style={{display:"flex"}}>
+        ><div style={{display:"flex"}}></div>
           <TextField
             label="Amount"
             variant="outlined"
@@ -304,16 +307,15 @@ const Wallet = () => {
             label="Amount"
             variant="outlined"
             margin="normal"
-            value={withdraw}
-            onChange={handleChange("withdraw")}
-            style={{marginLeft:"230px"}}
-          /></div>
+            // value={withdraw}
+            // onChange={handleChange("withdraw")}
+          />
           {/* <TextField
             label="Amount"
             variant="outlined"
             margin="normal"
-            value={yieldWithdraw}
-            onChange={handleChange("yieldWithdraw")}
+            // value={yieldWithdraw}
+            // onChange={handleChange("yieldWithdraw")}
           /> */}
         </Stack>
       </Box>
@@ -339,6 +341,13 @@ const Wallet = () => {
           variant="contained"
           size="large"
           onClick={onSubmitStake}
+        >
+          Approve
+        </Button>
+        <Button
+          sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
+          variant="contained"
+          size="large"
         >
           Deposit
         </Button>
