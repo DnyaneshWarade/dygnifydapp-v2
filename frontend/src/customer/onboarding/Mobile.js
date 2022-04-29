@@ -1,6 +1,5 @@
 import { React, useState } from "react";
-import axiosHttpService from '../../services/axioscall';
-import { sendMobileOtpOption } from '../../services/karzaAxiosOptions';
+import { sendMobileOtp } from '../../services/serviceHelper';
 import {
   Box,
   Stack,
@@ -14,23 +13,14 @@ import { useHistory } from "react-router-dom";
 
 const Mobile = () => {
   const [phone, setPhoneNo] = useState();
-  const history = useHistory(); 
-  
-  function sanitizePhoneNo() {
-    // Remove additional symbols from the phone number
-    let sanitizedPhoneNo = phone.replace('+', '').replace('-', '');
-    const parsedPhoneNo = sanitizedPhoneNo.split(' ');
-    return { 'CountryCode': parsedPhoneNo[0], 'PhoneNo': parsedPhoneNo[1] };
-  }
+  const history = useHistory();
 
   async function onSendCodeClicked() {
     try {
-      // Sanitize the phone number first and then send OTP
-      let { CountryCode, PhoneNo } = sanitizePhoneNo();
-      let mobileOTPRes = await axiosHttpService(sendMobileOtpOption(CountryCode, PhoneNo));
-      if (mobileOTPRes.code === 200 && mobileOTPRes.res['status-code'] === '101') {
+      let { status, requestId } = await sendMobileOtp(phone);
+      if (status) {
         // Redirect to Verification page
-        history.push('./verifyNumber');
+        history.push({ pathname: './verifyNumber', state: { 'phone': phone, 'requestId': requestId } });
       } else {
         //Showcase error 
       }
@@ -42,6 +32,7 @@ const Mobile = () => {
   function handleOnChange(value) {
     setPhoneNo(value);
   }
+  
   return (
     <>
       <Box

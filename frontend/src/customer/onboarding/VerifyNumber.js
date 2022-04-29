@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
   Box,
   Input,
@@ -8,9 +8,67 @@ import {
   TextField,
   Container,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { sendMobileOtp, checkMobileOtp, getMobileDetails } from '../../services/serviceHelper';
 
 const VerifyNumber = () => {
+  const location = useLocation();
+  const phone = location?.state?.phone ?? '';
+  const reqId = location?.state?.requestId ?? '';
+  const [otpInput1, setOTPInput1] = useState();
+  const [otpInput2, setOTPInput2] = useState();
+  const [otpInput3, setOTPInput3] = useState();
+  const [otpInput4, setOTPInput4] = useState();
+
+  async function onReSendCodeClicked() {
+    try {
+      let { status, requestId } = await sendMobileOtp(phone);
+      if (status) {
+        reqId = requestId;
+        // Display msg for successful resend of otp
+      } else {
+        //Showcase error 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function onVerifyOTPClicked() {
+    try {
+      const otp = `${otpInput1}${otpInput2}${otpInput3}${otpInput4}`;
+      const status = await checkMobileOtp(otp, reqId);
+      if (status) {
+        // Redirect to next page
+        
+        // Get the mobile details
+        const mobileDetail = await getMobileDetails(reqId);
+        if (mobileDetail.status) {
+          // Store details in Dygnify
+        }
+      } else {
+        // Show error on page
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleOTPInput1(value) {
+    setOTPInput1(value);
+  }
+
+  function handleOTPInput2(value) {
+    setOTPInput2(value);
+  }
+  function handleOTPInput3(value) {
+    setOTPInput3(value);
+  }
+
+  function handleOTPInput4(value) {
+    setOTPInput4(value);
+  }
+
   return (
     <>
       <Box
@@ -26,7 +84,7 @@ const VerifyNumber = () => {
       >
         <Typography variant="h4">Verify Account</Typography>
         <Typography variant="body2">
-          Enter 4-digit Code we have sent to at +91 000 000 0000
+          Enter 4-digit Code we have sent to at {phone}
         </Typography>
       </Box>
       <Box
@@ -46,6 +104,7 @@ const VerifyNumber = () => {
             pl: "45px",
           }}
           placeholder="0"
+          onChange={handleOTPInput1}
         />
         <Input
           sx={{
@@ -53,6 +112,7 @@ const VerifyNumber = () => {
             pl: "45px",
           }}
           placeholder="0"
+          onChange={handleOTPInput2}
         />
         <Input
           sx={{
@@ -60,6 +120,7 @@ const VerifyNumber = () => {
             pl: "45px",
           }}
           placeholder="0"
+          onChange={handleOTPInput3}
         />
         <Input
           sx={{
@@ -67,6 +128,7 @@ const VerifyNumber = () => {
             pl: "45px",
           }}
           placeholder="0"
+          onChange={handleOTPInput4}
         />
       </Box>
       <Stack
@@ -79,7 +141,7 @@ const VerifyNumber = () => {
       >
         <Typography>Didn't receive code?</Typography>
         <Typography>
-          <Link to="#">Resend Code</Link>
+          <Button onClick={onReSendCodeClicked}>Resend Code</Button>
         </Typography>
       </Stack>
       <Stack
@@ -89,8 +151,8 @@ const VerifyNumber = () => {
           mt: "50px",
         }}
       >
-        <TextField label="Referral Code (Optional)" variant="standard" />
-        <TextField label="Agent ID (Optional)" variant="standard" />
+        {/* <TextField label="Referral Code (Optional)" variant="standard" />
+        <TextField label="Agent ID (Optional)" variant="standard" /> */}
       </Stack>
       <Container
         maxWidth="sm"
@@ -104,6 +166,7 @@ const VerifyNumber = () => {
             background: "#7165E3",
             float: "right",
           }}
+          onClick={onVerifyOTPClicked}
         >
           Proceed
         </Button>
