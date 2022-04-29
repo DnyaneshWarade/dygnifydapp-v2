@@ -26,6 +26,8 @@ import Welcome from "./customer/onboarding/Welcome";
 import Docs from "./customer/onboarding/Docs";
 import PanOption from "./customer/onboarding/PanOption";
 import PanProof from "./customer/onboarding/PanProof";
+import BusinessProof from "./customer/onboarding/BusinessProof";
+import BusinessOption from "./customer/onboarding/BusinessOption";
 
 const Routes = () => {
   return (
@@ -44,7 +46,7 @@ const Routes = () => {
         <Route exact path="/wallet" component={Wallet} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/disbursement" component={Disbursement} />
-        <Route exact path="/sale" component={PanProof} />
+        <Route exact path="/sale" component={BusinessProof} />
       </Switch>
     </BrowserRouter>
   );
