@@ -101,7 +101,7 @@ const Identity = ({ handleClick }) => {
             color: "#7165E3",
           }}
           variant="contained"
-          onClick={() => handleClick("photo")}
+          onClick={() => handleClick("passport")}
         >
           Next
         </Button>

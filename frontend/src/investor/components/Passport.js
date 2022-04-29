@@ -62,7 +62,7 @@ const Photo = ({ handleClick }) => {
         sx={{ textAlign: "center", color: "#ffffff" }}
         variant="body1"
       >
-        Frame your face properly
+        Please ascertain the photo is clear, in focus and readable
       </Typography>
       <Stack
         sx={{
@@ -89,7 +89,7 @@ const Photo = ({ handleClick }) => {
           onClick={
             image
               ? () => {
-                  handleClick("address");
+                  handleClick("photo");
                 }
               : (e) => {
                   e.preventDefault();

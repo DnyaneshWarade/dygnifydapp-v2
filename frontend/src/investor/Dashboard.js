@@ -53,8 +53,8 @@ const Dashboard = () => {
           </div>
         </div>
       </Box>
-      <Stack sx={{ color: "#ffffff", ml: "64px", mt: "28px" }}>
-        <Typography>Hello , Mr Vitalik Buterin </Typography>
+      <Stack sx={{ color: "#ffffff", mt: "28px", textAlign : "center" }}>
+        <Typography variant="h4">Investor Dashboard</Typography>
       </Stack>
       <Box
         sx={{
@@ -92,7 +92,7 @@ const Dashboard = () => {
           }}
         >
           <div>
-            <Typography variant="subtitle2">
+            <Typography style={{marginLeft:"36px"}} variant="subtitle2">
               Income Generating Loans{" "}
             </Typography>
             <Typography variant="overline">Opportunity</Typography>
