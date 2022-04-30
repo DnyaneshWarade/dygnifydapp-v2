@@ -1,5 +1,5 @@
 import axiosHttpService from './axioscall';
-import { sendMobileOtpOption, checkMobileOtpStatusOption, getMobileDetailsOption } from './karzaAxiosOptions';
+import { dygnifySendMobileOTP, dygnifyValidateMobileOTP, dygnifyGetMobileDetails, dygnifyKycOCR } from './dygnifyAxiosOptions';
 
 function sanitizePhoneNo(phone) {
     // Remove additional symbols from the phone number
@@ -13,8 +13,8 @@ export async function sendMobileOtp(phone) {
         if (phone) {
             // Sanitize the phone number first and then send OTP
             let { countryCode, phoneNo } = sanitizePhoneNo(phone);
-            let mobileOTPRes = await axiosHttpService(sendMobileOtpOption(countryCode, phoneNo));
-            if (mobileOTPRes.code === 200 && mobileOTPRes.res['status-code'] === '101') {
+            let mobileOTPRes = await axiosHttpService(dygnifySendMobileOTP(countryCode, phoneNo));
+            if (mobileOTPRes.code === 200) {
                 return { 'requestId': mobileOTPRes.res['request_id'], 'status': true };
             }
         }
@@ -24,10 +24,10 @@ export async function sendMobileOtp(phone) {
     return { 'status': false };
 }
 
-export async function checkMobileOtp(otp, requestId) {
+export async function checkMobileOtp(requestId, otp, phoneNo) {
     try {
         if (otp && requestId) {
-            let checkMobileOtpResp = await axiosHttpService(checkMobileOtpStatusOption(otp, requestId));
+            let checkMobileOtpResp = await axiosHttpService(dygnifyValidateMobileOTP(requestId, otp, phoneNo));
             if (checkMobileOtpResp.res["status-code"] === "101" && checkMobileOtpResp.res.result.sim_details.otp_validated) {
                 return { 'status': true };
             }
@@ -38,12 +38,26 @@ export async function checkMobileOtp(otp, requestId) {
     return { 'status': false };
 }
 
-export async function getMobileDetails(requestId) {
+export async function getMobileDetails(requestId, phoneNo, bearerToken) {
     try {
         if (requestId) {
-            let mobileDetailsResp = await axiosHttpService(getMobileDetailsOption(requestId));
+            let mobileDetailsResp = await axiosHttpService(dygnifyGetMobileDetails(requestId, phoneNo, bearerToken));
             if (mobileDetailsResp.res["status-code"] === "101") {
                 return { 'status': true, 'mobileData': mobileDetailsResp.res };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return { 'status': false };
+}
+
+export async function getOCRFetch(file, bearerToken) {
+    try {
+        if (file) {
+            let ocrFetchResp = await axiosHttpService(dygnifyKycOCR(file, bearerToken));
+            if (ocrFetchResp.code === 200) {
+                return { 'status': true, 'data': ocrFetchResp.res };
             }
         }
     } catch (error) {

@@ -1,7 +1,22 @@
-import React from "react";
+import { useRef, useState } from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
+import { getOCRFetch } from '../../../services/serviceHelper';
 
-const PanUpload = ({handleClick}) => {
+const PanUpload = ({ handleClick }) => {
+  const [selectedFile, setSelectedFile] = useState();
+  // Reference to the hidden file input element
+  const hiddenFileInput = useRef(null);
+  // Handle upload button click
+  const handleUploadClick = event => {
+    hiddenFileInput.current.click();
+  };
+
+  // Handle file selection
+  const handleChange = async (event) => {
+    const res = await getOCRFetch(event.target.files[0], '');
+    console.log(res);
+  };
+
   return (
     <>
       <Box
@@ -30,9 +45,13 @@ const PanUpload = ({handleClick}) => {
             borderRadius: "12px",
             cursor: "pointer",
           }}
-          onClick={() => {
-            console.log("clicked");
-          }}
+          onClick={handleUploadClick}
+        />
+        <input
+          type="file"
+          ref={hiddenFileInput}
+          onChange={handleChange}
+          style={{ display: 'none' }}
         />
         <Button variant="contained" sx={{ backgroundColor: "#7165E3" }}>
           Verify
@@ -42,7 +61,7 @@ const PanUpload = ({handleClick}) => {
         <Button
           variant="contained"
           sx={{ backgroundColor: "#979797", float: "right" }}
-          onClick={()=>{handleClick("panUploaded")}}
+          onClick={() => { handleClick("panUploaded") }}
         >
           Next
         </Button>

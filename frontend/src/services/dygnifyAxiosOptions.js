@@ -405,6 +405,95 @@ function dygnifySendCoBorrowerConsent(consent, CoBorrowerId, bearerToken) {
 
 }
 
+function dygnifyFileUpload(stream, bearerToken) {
+    const data = new FormData();
+    data.append('file', stream);
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'uploadImage',
+        headers: {
+            'Authorization': bearerToken,
+            'Content-Type': 'multipart/form-data'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
+function dygnifyKycOCR(stream, bearerToken) {
+    const data = new FormData();
+    data.append('file', stream);
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/kycOCR',
+        headers: {
+            'Authorization': bearerToken,
+            'Content-Type': 'multipart/form-data'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
+function dygnifySendMobileOTP(countryCode, phoneNo) {
+    var data = JSON.stringify({
+        "mobile": phoneNo,
+        "countryCode": countryCode
+    });
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/getOTP',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
+function dygnifyValidateMobileOTP(reqId, otp, phoneNo) {
+    var data = JSON.stringify({
+        "reqId": reqId,
+        "otp": otp,
+        "mobile": phoneNo
+    });
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/validateOTP',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
+function dygnifyGetMobileDetails(reqId, phoneNo, bearerToken) {
+    var data = JSON.stringify({
+        "reqId": reqId,
+        "mobile": phoneNo
+    });
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/getMobileDetails',
+        headers: {
+            'Authorization': bearerToken,
+            'Content-Type': 'application/json'
+        },
+        data: data
+    }
+
+    return api_options;
+}
 
 module.exports = {
     dygnifyBusinessOwnerCreationOption,
@@ -428,5 +517,10 @@ module.exports = {
     dygnifyGetKarzaAPIDumpOptions,
     dygnifySendOwnerConsent,
     dygnifySendCoBorrowerConsent,
-    dygnifyUpdateCoborrowerKycOption
+    dygnifyUpdateCoborrowerKycOption,
+    dygnifyFileUpload,
+    dygnifyKycOCR,
+    dygnifySendMobileOTP,
+    dygnifyValidateMobileOTP,
+    dygnifyGetMobileDetails
 }

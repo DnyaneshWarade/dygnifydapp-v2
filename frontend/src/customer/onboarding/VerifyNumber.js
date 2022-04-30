@@ -37,14 +37,14 @@ const VerifyNumber = () => {
   async function onVerifyOTPClicked() {
     try {
       const otp = `${otpInput1}${otpInput2}${otpInput3}${otpInput4}`;
-      const status = await checkMobileOtp(otp, reqId);
+      const status = await checkMobileOtp(reqId, otp, phone);
       if (status) {
         // Redirect to next page
         
         // Get the mobile details
         const mobileDetail = await getMobileDetails(reqId);
         if (mobileDetail.status) {
-          // Store details in Dygnify
+          // Store details in state
         }
       } else {
         // Show error on page
