@@ -1,5 +1,7 @@
 import { React, useState } from "react";
 import { sendMobileOtp } from '../../services/serviceHelper';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Box,
   Stack,
@@ -9,22 +11,33 @@ import {
 } from "@mui/material";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useHistory } from "react-router-dom";
+import { css } from "@emotion/react";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const Mobile = () => {
   const [phone, setPhoneNo] = useState();
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const errorNotify = (error) => toast.error(error);
 
   async function onSendCodeClicked() {
     try {
-      let { status, requestId } = await sendMobileOtp(phone);
+      setLoading(true);
+      let { status, requestId } = await sendMobileOtp(phone).then(
+        setLoading(false)  
+      );
+      
       if (status) {
         // Redirect to Verification page
         history.push({ pathname: './verifyNumber', state: { 'phone': phone, 'requestId': requestId } });
       } else {
-        //Showcase error 
+        //Showcase error
+        errorNotify("error")
       }
     } catch (error) {
       console.log(error);
+      errorNotify(error);
     }
   }
 
@@ -34,7 +47,7 @@ const Mobile = () => {
   
   return (
     <>
-      <Box
+        <Box
         sx={{
           backgroundColor: "#7165E3",
           height: "140px",
@@ -96,7 +109,18 @@ const Mobile = () => {
           mt: "80px",
         }}
       >
-        <Button
+        {loading
+        ?
+          <Box 
+            sx={{
+              float: "right",
+            }}
+          ><Typography>
+          Sending code...
+          </Typography>
+          <SyncLoader size='25' color='#7165e3' margin='5px'  /></Box>
+        :
+          <Button
           variant="contained"
           sx={{
             background: "#7165E3",
@@ -106,7 +130,11 @@ const Mobile = () => {
         >
           Send Code
         </Button>
+        }
+        
       </Container>
+      <ToastContainer theme="colored" />
+        
     </>
   );
 };

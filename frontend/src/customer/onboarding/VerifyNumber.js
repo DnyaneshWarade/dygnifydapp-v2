@@ -10,6 +10,10 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { sendMobileOtp, checkMobileOtp, getMobileDetails } from '../../services/serviceHelper';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { css } from "@emotion/react";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const VerifyNumber = () => {
   const location = useLocation();
@@ -19,25 +23,36 @@ const VerifyNumber = () => {
   const [otpInput2, setOTPInput2] = useState();
   const [otpInput3, setOTPInput3] = useState();
   const [otpInput4, setOTPInput4] = useState();
+  const [loading, setLoading] = useState(false);
+  const errorNotify = (error) => toast.error(error);
 
   async function onReSendCodeClicked() {
+    
     try {
-      let { status, requestId } = await sendMobileOtp(phone);
+      setLoading(true)
+      let { status, requestId } = await sendMobileOtp(phone).then(
+        setLoading(false)
+      );
       if (status) {
         reqId = requestId;
         // Display msg for successful resend of otp
       } else {
         //Showcase error 
+        errorNotify("error");
       }
     } catch (error) {
       console.log(error);
+      errorNotify(error);
     }
   }
 
   async function onVerifyOTPClicked() {
     try {
+      setLoading(true)
       const otp = `${otpInput1}${otpInput2}${otpInput3}${otpInput4}`;
-      const status = await checkMobileOtp(otp, reqId);
+      const status = await checkMobileOtp(otp, reqId).then(
+        setLoading(false)
+      );
       if (status) {
         // Redirect to next page
         
@@ -48,9 +63,11 @@ const VerifyNumber = () => {
         }
       } else {
         // Show error on page
+        errorNotify("error");
       }
     } catch (error) {
       console.log(error);
+      errorNotify(error);
     }
   }
 
@@ -70,7 +87,7 @@ const VerifyNumber = () => {
   }
 
   return (
-    <>
+    <> 
       <Box
         sx={{
           backgroundColor: "#7165E3",
@@ -140,9 +157,23 @@ const VerifyNumber = () => {
         }}
       >
         <Typography>Didn't receive code?</Typography>
+        {loading
+        ?
+          <Box 
+            sx={{
+              float: "right",
+            }}
+            ><Typography>
+            Resending...
+            </Typography>
+            <SyncLoader size='25' color='#7165e3' margin='5px'  />
+          </Box>
+        :
         <Typography>
-          <Button onClick={onReSendCodeClicked}>Resend Code</Button>
-        </Typography>
+        <Button onClick={onReSendCodeClicked}>Resend Code</Button>
+      </Typography>
+        }
+        
       </Stack>
       <Stack
         sx={{
@@ -160,7 +191,18 @@ const VerifyNumber = () => {
           mt: "80px",
         }}
       >
-        <Button
+        {loading
+        ?
+          <Box 
+            sx={{
+              float: "right",
+            }}
+          ><Typography>
+          Verifying...
+          </Typography>
+          <SyncLoader size='25' color='#7165e3' margin='5px'  /></Box>
+        :
+          <Button
           variant="contained"
           sx={{
             background: "#7165E3",
@@ -170,7 +212,11 @@ const VerifyNumber = () => {
         >
           Proceed
         </Button>
+        }
+        
       </Container>
+      <ToastContainer theme="colored" />
+      
     </>
   );
 };
