@@ -13,7 +13,9 @@ const PanUpload = ({ handleClick }) => {
 
   // Handle file selection
   const handleChange = async (event) => {
-    const res = await getOCRFetch(event.target.files[0], '');
+    setSelectedFile(event.target.files[0]);
+    const res = await getOCRFetch(selectedFile, '');
+    
     console.log(res);
   };
 
