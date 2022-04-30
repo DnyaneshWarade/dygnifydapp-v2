@@ -27,6 +27,8 @@ import Docs from "./customer/onboarding/Docs";
 import PanOption from "./customer/onboarding/PanOption";
 import PanProof from "./customer/onboarding/PanProof";
 import PanUpload from './customer/onboarding/panProofComponents/PanUpload'
+import BusinessProof from "./customer/onboarding/BusinessProof";
+import BusinessOption from "./customer/onboarding/BusinessOption";
 
 const Routes = () => {
   return (

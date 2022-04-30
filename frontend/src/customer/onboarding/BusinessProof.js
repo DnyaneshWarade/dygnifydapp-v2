@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Container, Box, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import PanUpload from "./panProofComponents/PanUpload";
-import PanUploaded from "./panProofComponents/PanUploaded";
-import JobCard from "./panProofComponents/JobCard";
-import JobCardUploaded from "./panProofComponents/JobCardUploaded";
-import Aadhar from "./panProofComponents/Aadhar";
-import AadharUploaded from "./panProofComponents/AadharUploaded";
+import UdyamUpload from "./businessProofComponents/UdyamUpload";
+import UdyamUploaded from "./businessProofComponents/UdyamUploaded";
+import ShopEstUpload from "./businessProofComponents/ShopEstUpload";
+import ShopEstUploaded from "./businessProofComponents/ShopEstUploaded";
+import FssaiUpload from "./businessProofComponents/FssaiUpload";
+import FssaiUploaded from "./businessProofComponents/FssaiUploaded";
+import GstUpload from "./businessProofComponents/GstUpload";
+import GstUploaded from "./businessProofComponents/GstUploaded";
+import BussinessProofUpload from "./businessProofComponents/BusinessProofUpload";
+import BussinessProofUploaded from "./businessProofComponents/BusinessProofUploaded";
+import BillUpload from "./businessProofComponents/BillUpload";
+import BillUploaded from "./businessProofComponents/BillUploaded";
+import Selfie from "./businessProofComponents/Selfie";
 
 const LinearProgressWithLabel = (props) => {
   return (
@@ -23,7 +30,7 @@ const LinearProgressWithLabel = (props) => {
   );
 };
 
-const PanProof = () => {
+const BusinessProof = () => {
   const [progress, setProgress] = useState(30);
   const [next, setNext] = useState("panUpload");
 
@@ -57,7 +64,7 @@ const PanProof = () => {
           <LinearProgressWithLabel value={progress} />
         </Box>
 
-        {(() => {
+        {/* {(() => {
           switch (next) {
             case "panUpload":
               return <PanUpload handleClick={handleClick} />;
@@ -74,10 +81,24 @@ const PanProof = () => {
             default:
               return <PanUpload />;
           }
-        })()}
+        })()} */}
+
+        {/* <UdyamUpload/> */}
+        {/* <UdyamUploaded /> */}
+        {/* <ShopEstUpload /> */}
+        {/* <ShopEstUploaded /> */}
+        {/* <FssaiUpload /> */}
+        {/* <FssaiUploaded /> */}
+        {/* <GstUpload/> */}
+        {/* <GstUploaded/> */}
+        {/* <BussinessProofUpload /> */}
+        {/* <BussinessProofUploaded/> */}
+        {/* <BillUpload /> */}
+        {/* <BillUploaded/> */}
+        {/* <Selfie/> */}
       </Container>
     </>
   );
 };
 
-export default PanProof;
+export default BusinessProof;
