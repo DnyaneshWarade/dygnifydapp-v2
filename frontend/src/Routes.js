@@ -47,7 +47,7 @@ const Routes = () => {
         <Route exact path="/wallet" component={Wallet} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/disbursement" component={Disbursement} />
-        <Route exact path="/sale" component={PanProof} />
+        <Route exact path="/sale" component={BusinessProof} />
         <Route exact path="/pan" component={PanUpload} />
         <Route exact path="/mobile" component={Mobile} />
         <Route exact path="/VerifyNumber" component={VerifyNumber} />

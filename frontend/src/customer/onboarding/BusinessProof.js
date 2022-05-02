@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import { Container, Box, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import UdyamUpload from "./businessProofComponents/UdyamUpload";
-import UdyamUploaded from "./businessProofComponents/UdyamUploaded";
 import ShopEstUpload from "./businessProofComponents/ShopEstUpload";
-import ShopEstUploaded from "./businessProofComponents/ShopEstUploaded";
 import FssaiUpload from "./businessProofComponents/FssaiUpload";
-import FssaiUploaded from "./businessProofComponents/FssaiUploaded";
 import GstUpload from "./businessProofComponents/GstUpload";
-import GstUploaded from "./businessProofComponents/GstUploaded";
 import BussinessProofUpload from "./businessProofComponents/BusinessProofUpload";
-import BussinessProofUploaded from "./businessProofComponents/BusinessProofUploaded";
 import BillUpload from "./businessProofComponents/BillUpload";
-import BillUploaded from "./businessProofComponents/BillUploaded";
 import Selfie from "./businessProofComponents/Selfie";
 
 const LinearProgressWithLabel = (props) => {
@@ -86,16 +80,11 @@ const BusinessProof = () => {
         {/* <UdyamUpload/> */}
         {/* <UdyamUploaded /> */}
         {/* <ShopEstUpload /> */}
-        {/* <ShopEstUploaded /> */}
         {/* <FssaiUpload /> */}
-        {/* <FssaiUploaded /> */}
         {/* <GstUpload/> */}
-        {/* <GstUploaded/> */}
         {/* <BussinessProofUpload /> */}
-        {/* <BussinessProofUploaded/> */}
         {/* <BillUpload /> */}
-        {/* <BillUploaded/> */}
-        {/* <Selfie/> */}
+        <Selfie/>
       </Container>
     </>
   );

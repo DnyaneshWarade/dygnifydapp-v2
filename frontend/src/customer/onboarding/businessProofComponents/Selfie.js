@@ -100,10 +100,7 @@ const Selfie = () => {
       <Container maxWidth="md" sx={{ mt: "60px" }}>
         <Button
           variant="contained"
-          sx={{ backgroundColor: "#979797", float: "right" }}
-          //   onClick={() => {
-          //     handleClick("panUploaded");
-          //   }}
+          sx={{ backgroundColor: "#7165E3", float: "right" }}
         >
           Next
         </Button>
