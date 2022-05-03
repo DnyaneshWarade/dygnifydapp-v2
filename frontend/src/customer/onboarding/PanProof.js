@@ -4,9 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import PanUpload from "./panProofComponents/PanUpload";
 import PanUploaded from "./panProofComponents/PanUploaded";
 import JobCard from "./panProofComponents/JobCard";
-import JobCardUploaded from "./panProofComponents/JobCardUploaded";
 import Aadhar from "./panProofComponents/Aadhar";
-import AadharUploaded from "./panProofComponents/AadharUploaded";
 
 const LinearProgressWithLabel = (props) => {
   return (
@@ -66,11 +64,11 @@ const PanProof = () => {
             case "jobCard":
               return <JobCard handleClick={handleClick} />;
             case "jobCardUploaded":
-              return <JobCardUploaded handleClick={handleClick} />;
+              return <JobCard handleClick={handleClick} />;
             case "aadhar":
               return <Aadhar handleClick={handleClick} />;
             case "aadharUploaded":
-              return <AadharUploaded handleClick={handleClick} />;
+              return <Aadhar handleClick={handleClick} />;
             default:
               return <PanUpload />;
           }

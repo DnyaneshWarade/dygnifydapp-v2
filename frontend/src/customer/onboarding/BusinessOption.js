@@ -1,48 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Typography, Button } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
-const RadioButtonsGroup = () => {
-  return (
-    <FormControl sx={{ py: "22px" }}>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue=""
-      >
-        <FormControlLabel
-          value="udyam"
-          control={<Radio color="default" />}
-          label="UDYAM"
-        />
-        <FormControlLabel
-          value="shop"
-          control={<Radio color="default" />}
-          label="Shop establishment"
-        />
-        <FormControlLabel
-          value="fssai"
-          control={<Radio color="default" />}
-          label="FSSAI"
-        />
-        <FormControlLabel
-          value="gst"
-          control={<Radio color="default" />}
-          label="GST"
-        />
-        <FormControlLabel
-          value="other"
-          control={<Radio color="default" />}
-          label="Others"
-        />
-      </RadioGroup>
-    </FormControl>
-  );
-};
-
 const BusinessOption = () => {
+  const [option, setOption] = useState("");
+
+  const handleChange = (event) => {
+    setOption(event.target.value);
+  };
+
+  const RadioButtonsGroup = () => {
+    return (
+      <FormControl sx={{ py: "22px" }}>
+        <RadioGroup value={option} onChange={handleChange}>
+          <FormControlLabel
+            value="udyam"
+            control={<Radio color="default" />}
+            label="UDYAM"
+          />
+          <FormControlLabel
+            value="shop"
+            control={<Radio color="default" />}
+            label="Shop establishment"
+          />
+          <FormControlLabel
+            value="fssai"
+            control={<Radio color="default" />}
+            label="FSSAI"
+          />
+          <FormControlLabel
+            value="gst"
+            control={<Radio color="default" />}
+            label="GST"
+          />
+          <FormControlLabel
+            value="other"
+            control={<Radio color="default" />}
+            label="Others"
+          />
+        </RadioGroup>
+      </FormControl>
+    );
+  };
   return (
     <>
       <style>{"body { background-color: #7165E3; }"}</style>
