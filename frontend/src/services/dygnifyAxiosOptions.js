@@ -495,6 +495,45 @@ function dygnifyGetMobileDetails(reqId, phoneNo, bearerToken) {
     return api_options;
 }
 
+function dygnifySendAadhaarOTP(aadhaarNo, name, bearerToken) {
+    var data = JSON.stringify({
+        "aadhaarNo": aadhaarNo,
+        "name": name
+    });
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/getAadhaarOTP',
+        headers: {
+            'Authorization': bearerToken,
+            'Content-Type': 'application/json'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
+function dygnifyValidateAadhaarOTP(otp, accessKey, caseId, bearerToken) {
+    var data = JSON.stringify({
+        "otp": otp,
+        "accessKey": accessKey,
+        "caseId": caseId
+    });
+
+    var api_options = {
+        method: 'post',
+        url: process.env.REACT_APP_DYGNIFY_URL + 'utility/validateAadhaarOTP',
+        headers: {
+            'Authorization': bearerToken,
+            'Content-Type': 'application/json'
+        },
+        data: data
+    }
+
+    return api_options;
+}
+
 module.exports = {
     dygnifyBusinessOwnerCreationOption,
     dygnifycreateBusinessOptions,
@@ -522,5 +561,7 @@ module.exports = {
     dygnifyKycOCR,
     dygnifySendMobileOTP,
     dygnifyValidateMobileOTP,
-    dygnifyGetMobileDetails
+    dygnifyGetMobileDetails,
+    dygnifySendAadhaarOTP,
+    dygnifyValidateAadhaarOTP
 }

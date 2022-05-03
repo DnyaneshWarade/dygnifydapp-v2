@@ -65,3 +65,31 @@ export async function getOCRFetch(file, bearerToken) {
     }
     return { 'status': false };
 }
+
+export async function sendAadhaarOTP(aadhaarNo, name, bearerToken) {
+    try {
+        if (aadhaarNo && name && bearerToken) {
+            let aadhaarOTPRes = await axiosHttpService(dygnifySendAadhaarOTP(aadhaarNo, name, bearerToken));
+            if (aadhaarOTPRes.code === 200) {
+                return { 'status': true, data: aadhaarOTPRes.res };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return { 'status': false };
+}
+
+export async function ValidateAadhaarOTP(otp, accessKey, caseId, bearerToken) {
+    try {
+        if (otp && accessKey && caseId && bearerToken) {
+            let otpValidationRes = await axiosHttpService(dygnifyValidateAadhaarOTP(otp, accessKey, caseId, bearerToken));
+            if (otpValidationRes.code === 200) {
+                return { 'status': true, data: otpValidationRes.res };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return { 'status': false };
+}
