@@ -1,5 +1,8 @@
 import axiosHttpService from './axioscall';
-import { dygnifySendMobileOTP, dygnifyValidateMobileOTP, dygnifyGetMobileDetails, dygnifyKycOCR } from './dygnifyAxiosOptions';
+import {
+    dygnifySendMobileOTP, dygnifyValidateMobileOTP, dygnifyGetMobileDetails,
+    dygnifyKycOCR, dygnifySendAadhaarOTP, dygnifyValidateAadhaarOTP
+} from './dygnifyAxiosOptions';
 
 function sanitizePhoneNo(phone) {
     // Remove additional symbols from the phone number
