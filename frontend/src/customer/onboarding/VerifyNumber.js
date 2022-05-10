@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
   Box,
   Input,
@@ -10,67 +10,71 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { sendMobileOtp, checkMobileOtp, getMobileDetails } from '../../services/serviceHelper';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { css } from "@emotion/react";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const VerifyNumber = () => {
   const location = useLocation();
   const phone = location?.state?.phone ?? '';
   const reqId = location?.state?.requestId ?? '';
-  const [otpInput1, setOTPInput1] = useState();
-  const [otpInput2, setOTPInput2] = useState();
-  const [otpInput3, setOTPInput3] = useState();
-  const [otpInput4, setOTPInput4] = useState();
+  const [otpInput1, setOTPInput1] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingResend, setLoadingResend] = useState(false);
+  const errorNotify = (error) => toast.error(error);
+  const [mobileData, setMobileData] = useState({data:""});
 
+  
   async function onReSendCodeClicked() {
     try {
-      let { status, requestId } = await sendMobileOtp(phone);
+      setLoadingResend(true)
+      let { status, requestId } = await sendMobileOtp(phone)
+      setLoadingResend(false)
+
       if (status) {
         reqId = requestId;
         // Display msg for successful resend of otp
       } else {
         //Showcase error 
+        errorNotify("error");
       }
     } catch (error) {
-      console.log(error);
+      errorNotify(error);
     }
   }
 
   async function onVerifyOTPClicked() {
     try {
-      const otp = `${otpInput1}${otpInput2}${otpInput3}${otpInput4}`;
+      setLoading(true)
+      const otp = `${otpInput1}`;
       const status = await checkMobileOtp(reqId, otp, phone);
+      setLoading(false)
+      console.log(otp)
       if (status) {
         // Redirect to next page
-        
+
         // Get the mobile details
-        const mobileDetail = await getMobileDetails(reqId);
+        const mobileDetail = await getMobileDetails(reqId,phone,'');
         if (mobileDetail.status) {
           // Store details in state
+          setMobileData({...mobileData,...mobileDetail.mobileData.data})
         }
       } else {
         // Show error on page
+        errorNotify("error");
       }
     } catch (error) {
-      console.log(error);
+      errorNotify(error);
     }
   }
 
-  function handleOTPInput1(value) {
-    setOTPInput1(value);
-  }
-
-  function handleOTPInput2(value) {
-    setOTPInput2(value);
-  }
-  function handleOTPInput3(value) {
-    setOTPInput3(value);
-  }
-
-  function handleOTPInput4(value) {
-    setOTPInput4(value);
+  function handleOTPInput1(event) {
+    setOTPInput1(event.target.value);
   }
 
   return (
-    <>
+    <> 
       <Box
         sx={{
           backgroundColor: "#7165E3",
@@ -100,35 +104,11 @@ const VerifyNumber = () => {
       >
         <Input
           sx={{
-            maxWidth: "100px",
-            pl: "45px",
+            maxWidth: "500px",
+            pl: "180px",
           }}
           placeholder="0"
           onChange={handleOTPInput1}
-        />
-        <Input
-          sx={{
-            maxWidth: "100px",
-            pl: "45px",
-          }}
-          placeholder="0"
-          onChange={handleOTPInput2}
-        />
-        <Input
-          sx={{
-            maxWidth: "100px",
-            pl: "45px",
-          }}
-          placeholder="0"
-          onChange={handleOTPInput3}
-        />
-        <Input
-          sx={{
-            maxWidth: "100px",
-            pl: "45px",
-          }}
-          placeholder="0"
-          onChange={handleOTPInput4}
         />
       </Box>
       <Stack
@@ -140,9 +120,23 @@ const VerifyNumber = () => {
         }}
       >
         <Typography>Didn't receive code?</Typography>
+        {loadingResend
+        ?
+          <Box 
+            sx={{
+              float: "right",
+            }}
+            ><Typography>
+            Resending...
+            </Typography>
+            <SyncLoader size='25px' color='#7165e3' margin='5px'  />
+          </Box>
+        :
         <Typography>
-          <Button onClick={onReSendCodeClicked}>Resend Code</Button>
-        </Typography>
+        <Button onClick={onReSendCodeClicked}>Resend Code</Button>
+      </Typography>
+        }
+        
       </Stack>
       <Stack
         sx={{
@@ -160,7 +154,18 @@ const VerifyNumber = () => {
           mt: "80px",
         }}
       >
-        <Button
+        {loading
+        ?
+          <Box 
+            sx={{
+              float: "right",
+            }}
+          ><Typography>
+          Verifying...
+          </Typography>
+          <SyncLoader size='25px' color='#7165e3' margin='5px'  /></Box>
+        :
+          <Button
           variant="contained"
           sx={{
             background: "#7165E3",
@@ -170,7 +175,11 @@ const VerifyNumber = () => {
         >
           Proceed
         </Button>
+        }
+        
       </Container>
+      <ToastContainer theme="colored" />
+      
     </>
   );
 };

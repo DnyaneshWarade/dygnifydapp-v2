@@ -7,19 +7,54 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import { sendAadhaarOTP, ValidateAadhaarOTP } from '../../../services/serviceHelper';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import SyncLoader from "react-spinners/SyncLoader";
 
 const Aadhar = ({ handleClick }) => {
   const [page, setPage] = useState(0);
   const [display, setDisplay] = useState(0);
   const [aadhar, setAadhar] = useState("");
+  const [otpData, setOtpData] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [otpLoading, setotpLoading] = useState(false);
+  const [aadharData ,setAadharData] = useState({});
+  const [aadharVerifiedData ,setAadharVerifiedData] = useState({});
+
+  const errorNotify = (error) => toast.error(error);
+  // console.log(aadharVerifiedData.data.consentValidation.providedName)
 
   // Handle file selection
+  const handleChange2 = async (event) => {
+    setOtpData(event.target.value);
+  };
+
   const handleChange = async (event) => {
     setAadhar(event.target.value);
-    console.log(aadhar);
   };
 
   const otp = () => {
+
+    async function onVerifyAadharOtp(){
+      try{
+        setLoading(true);
+        let res = await ValidateAadhaarOTP(otpData,aadharData.data.accessKey,aadharData.data.caseId,"");
+        setLoading(false);
+        if(res.status){
+          setAadharVerifiedData(({...aadharVerifiedData,...res.data}))
+          setPage(1);
+        }
+        else {
+          //Showcase error 
+          errorNotify("error")
+        }
+      }
+      catch(error){
+        errorNotify(error);
+      }
+    }
+    
     return (
       <>
         <Container maxWidth="sm">
@@ -35,19 +70,32 @@ const Aadhar = ({ handleClick }) => {
             }}
           >
             <Typography sx={{ color: "#7165E3" }}>OTP</Typography>
-            <TextField variant="outlined" required />
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#7165E3",
-              }}
-              onClick={() => {
-                //do below thing on successful response
-                setPage(1);
-              }}
-            >
-              Verify
-            </Button>
+            <TextField 
+              variant="outlined" 
+              required 
+              value={otpData}
+              onChange={handleChange2}/>
+            {
+              loading ?
+                <Box 
+                sx={{
+                }}
+                ><Typography>
+                Verifying OTP...
+                </Typography>
+                <SyncLoader size='25px' color='#7165e3' margin='5px'  /></Box>
+              :
+                <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#7165E3",
+                }}
+                onClick={onVerifyAadharOtp}
+                >
+                  Verify
+                </Button>
+            }
+            
           </Box>
         </Container>
         <Container maxWidth="sm" sx={{ mx: "auto" }}>
@@ -59,6 +107,26 @@ const Aadhar = ({ handleClick }) => {
   };
 
   const aadharForm = () => {
+
+    async function onSendAadharOtp(){
+      try{
+        setotpLoading(true);
+        let res = await sendAadhaarOTP(aadhar,"Aniruddha Shahaji Thorat","");
+        setotpLoading(false);
+        if(res.status){
+          setAadharData(({...aadharData,...res}));
+          setDisplay(1);
+        }
+        else {
+          //Showcase error 
+          errorNotify("error")
+        }
+      }
+      catch(error){
+        errorNotify(error);
+      }
+    }
+
     return (
       <>
         <Container maxWidth="sm">
@@ -79,19 +147,30 @@ const Aadhar = ({ handleClick }) => {
               value={aadhar}
               onChange={handleChange}
             />
-            <Button
-              variant="contained"
+            {
+              otpLoading ?
+              <Box 
               sx={{
-                backgroundColor: "#7165E3",
               }}
-              onClick={() => {
-                setDisplay(1);
-              }}
-            >
+              ><Typography>
+              Sending OTP...
+              </Typography>
+              <SyncLoader size='25px' color='#7165e3' margin='5px'  /></Box>
+              :
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#7165E3",
+                }}
+                onClick={onSendAadharOtp}
+              >
               Send OTP
-            </Button>
+              </Button>
+            }
+            
           </Box>
         </Container>
+        <ToastContainer theme="colored" />
 
         {display ? otp() : ""}
       </>
@@ -139,7 +218,7 @@ const Aadhar = ({ handleClick }) => {
                 color: "#7165E3",
               }}
             >
-              123456789123
+              {aadhar}
             </Typography>
             <Stack sx={{ alignItems: "center" }}>
               <img
@@ -162,9 +241,9 @@ const Aadhar = ({ handleClick }) => {
         </Container>
         <Container maxWidth="sm" sx={{ mt: "42px" }}>
           <Stack>
-            <Item name="Name" value="Test" />
-            <Item name="Dob" value="00/00/0000" />
-            <Item name="Address" value="Test" />
+            <Item name="Name" value={aadharVerifiedData.data.consentValidation.providedName} />
+            <Item name="Dob" value={aadharVerifiedData.data.dataFromAadhaar.dob} />
+            <Item name="Address" value={aadharVerifiedData.data.dataFromAadhaar.address.combinedAddress} />
             <Item name="Mobile No" value="1234567890" />
           </Stack>
         </Container>

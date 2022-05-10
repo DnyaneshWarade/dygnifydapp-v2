@@ -1,5 +1,8 @@
 import axiosHttpService from './axioscall';
-import { dygnifySendMobileOTP, dygnifyValidateMobileOTP, dygnifyGetMobileDetails, dygnifyKycOCR } from './dygnifyAxiosOptions';
+import {
+    dygnifySendMobileOTP, dygnifyValidateMobileOTP, dygnifyGetMobileDetails,
+    dygnifyKycOCR, dygnifySendAadhaarOTP, dygnifyValidateAadhaarOTP
+} from './dygnifyAxiosOptions';
 
 function sanitizePhoneNo(phone) {
     // Remove additional symbols from the phone number
@@ -58,6 +61,34 @@ export async function getOCRFetch(file, bearerToken) {
             let ocrFetchResp = await axiosHttpService(dygnifyKycOCR(file, bearerToken));
             if (ocrFetchResp.code === 200) {
                 return { 'status': true, 'data': ocrFetchResp.res };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return { 'status': false };
+}
+
+export async function sendAadhaarOTP(aadhaarNo, name, bearerToken) {
+    try {
+        if (aadhaarNo && name ) {//removed bearerToken in the if condition
+            let aadhaarOTPRes = await axiosHttpService(dygnifySendAadhaarOTP(aadhaarNo, name, bearerToken));
+            if (aadhaarOTPRes.code === 200) {
+                return { 'status': true, data: aadhaarOTPRes.res };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return { 'status': false };
+}
+
+export async function ValidateAadhaarOTP(otp, accessKey, caseId, bearerToken) {
+    try {
+        if (otp && accessKey && caseId ) {//removed bearerToken in the if condition
+            let otpValidationRes = await axiosHttpService(dygnifyValidateAadhaarOTP(otp, accessKey, caseId, bearerToken));
+            if (otpValidationRes.code === 200) {
+                return { 'status': true, data: otpValidationRes.res };
             }
         }
     } catch (error) {
