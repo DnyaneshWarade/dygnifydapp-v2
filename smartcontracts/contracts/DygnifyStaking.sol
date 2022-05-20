@@ -21,6 +21,7 @@ contract DygnifyStaking {
     string public name = "Dygnify Staking";
     address public owner;
     IERC20 public usdcToken;
+    uint public APR; 
 
     event Stake(address indexed from, uint256 amount);
     event Unstake(address indexed from, uint256 amount);
@@ -29,6 +30,15 @@ contract DygnifyStaking {
     constructor(IERC20 _usdcToken) {
         usdcToken = _usdcToken;
         owner = msg.sender;
+    }
+
+    modifier onlyOwner{
+        require(msg.sender == owner, "Only owner can execute");
+        _;
+    }
+
+    function changeAPR(uint _APR) onlyOwner public{
+        APR = _APR;
     }
 
     /// @notice Locks the user's USDC within the contract
@@ -90,13 +100,13 @@ contract DygnifyStaking {
         return totalTime;
     }
 
-    /// @notice Calculates the user's yield while using a 86400 second rate (for 100% returns in 24 hours)
+    /// @notice Calculates the user's yield while using a 31536000 second rate (for 100% returns in 24 hours)
     /// @dev Solidity does not compute fractions or decimals; therefore, time is multiplied by 10e18
     ///      before it's divided by the rate. rawYield thereafter divides the product back by 10e18
     /// @param user The address of the user
     function calculateYieldTotal(address user) public view returns (uint256) {
         uint256 time = calculateYieldTime(user) * 10**18;
-        uint256 rate = 86400;
+        uint256 rate = 31536000*APR;
         uint256 timeRate = time / rate;
         uint256 rawYield = (stakingBalance[user] * timeRate) / 10**18;
         return rawYield;
@@ -131,4 +141,12 @@ contract DygnifyStaking {
 
         return usdcYield[msg.sender] + currentYield;
     }
+
+    function withdrawTo(uint256 amount, address _receiver) onlyOwner public {
+        require(
+                usdcToken.balanceOf(address(this)) >= amount,
+                "Insufficient Balance"
+        );
+        usdcToken.transfer( _receiver, amount);
+    } 
 }

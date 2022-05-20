@@ -71,7 +71,7 @@ export async function getOCRFetch(file, bearerToken) {
 
 export async function sendAadhaarOTP(aadhaarNo, name, bearerToken) {
     try {
-        if (aadhaarNo && name && bearerToken) {
+        if (aadhaarNo && name ) {//removed bearerToken in the if condition
             let aadhaarOTPRes = await axiosHttpService(dygnifySendAadhaarOTP(aadhaarNo, name, bearerToken));
             if (aadhaarOTPRes.code === 200) {
                 return { 'status': true, data: aadhaarOTPRes.res };
@@ -85,7 +85,7 @@ export async function sendAadhaarOTP(aadhaarNo, name, bearerToken) {
 
 export async function ValidateAadhaarOTP(otp, accessKey, caseId, bearerToken) {
     try {
-        if (otp && accessKey && caseId && bearerToken) {
+        if (otp && accessKey && caseId ) {//removed bearerToken in the if condition
             let otpValidationRes = await axiosHttpService(dygnifyValidateAadhaarOTP(otp, accessKey, caseId, bearerToken));
             if (otpValidationRes.code === 200) {
                 return { 'status': true, data: otpValidationRes.res };
