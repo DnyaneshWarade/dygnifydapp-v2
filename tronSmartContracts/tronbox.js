@@ -1,3 +1,4 @@
+require("dotenv").config();
 const port = process.env.HOST_PORT || 9090
 
 module.exports = {
@@ -28,7 +29,7 @@ Then, run the migration with:
       network_id: '2'
     },
     nile: {
-      privateKey: process.env.PRIVATE_KEY_NILE,
+      privateKey:  process.env.PRIVATE_KEY_NILE,
       userFeePercentage: 100,
       feeLimit: 1000 * 1e6,
       fullHost: 'https://api.nileex.io',
