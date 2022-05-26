@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Borrow from "./borrow/Borrow";
 import Home from "./home/Home";
 import Token from "./home/Token";
+import Tron from "./home/TronTest";
 import Mobile from "./customer/onboarding/Mobile";
 import VerifyNumber from "./customer/onboarding/VerifyNumber";
 import ChooseLanguage from "./customer/onboarding/ChooseLanguage";
@@ -38,6 +39,7 @@ const Routes = () => {
         <Route exact path="/pool" component={Home} />
         <Route exact path="/borrow" component={Borrow} />
         <Route exact path="/token" component={Token} />
+        <Route exact path="/tron" component={Tron} />
         <Route exact path="/test" component={Test} />
         <Route exact path="/overview" component={Overview} />
         <Route exact path="/sign" component={DashboardMain} />
