@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.5.10;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ITRC20.sol";
 
 /// @title Dygnify Staking
 /// @author DNyanesh Warade
@@ -20,14 +20,14 @@ contract DygnifyStaking {
 
     string public name = "Dygnify Staking";
     address public owner;
-    IERC20 public usdcToken;
+    ITRC20 public usdcToken;
     uint public APR; 
 
     event Stake(address indexed from, uint256 amount);
     event Unstake(address indexed from, uint256 amount);
     event YieldWithdraw(address indexed to, uint256 amount);
 
-    constructor(IERC20 _usdcToken) {
+    constructor(ITRC20 _usdcToken)public {
         usdcToken = _usdcToken;
         owner = msg.sender;
     }
