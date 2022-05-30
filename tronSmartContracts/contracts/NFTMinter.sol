@@ -1264,4 +1264,10 @@ contract NFTMinter is TRC721, TRC721Enumerable, TRC721MetadataMintable {
     function totalSupply() public view returns (uint256) {
         return _tokenIds;
     }
+ 
+    //function that will burn nft
+    function burn(uint256 tokenId) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId));
+        _burn(ownerOf(tokenId), tokenId);
+    }
 }

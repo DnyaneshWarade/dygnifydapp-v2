@@ -1,14 +1,13 @@
 import {React,useState} from "react";
-import { ethers } from 'ethers';
 import { Box, Button, Typography, Stack, Divider, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import NFTMinter from "../artifacts/contracts/NFT_minter.sol/NFTMinter.json";
 import axiosHttpService from '../services/axioscall';
 import { uploadFileToIPFS } from '../services/PinataIPFSOptions';
+import { requestAccount } from "../components/navbar/NavBarHelper";
+import TronWeb from 'tronweb';
 const axios = require('axios');
 
-const REACT_APP_PINATA_API_KEY = "bd910e460ee4b6ef0519";
-const REACT_APP_PINATA_API_SECRET = "38f736a6d364857d02414d490277de4952207f74d1f495c4f2158332639120b7";
 const tokenAddress = "0x1546A8e7389B47d2Cf1bacE7C0ad3e0A91CAae94";
 const NFT_minter = "0xbEfC9040e1cA8B224318e4f9BcE9E3e928471D37";
 
@@ -19,8 +18,8 @@ const pinJSONToIPFS = async(JSONBody) => {
   return axios 
       .post(url, JSONBody, {
           headers: {
-              pinata_api_key: REACT_APP_PINATA_API_KEY,
-              pinata_secret_api_key: REACT_APP_PINATA_API_SECRET,
+              pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+              pinata_secret_api_key: process.env.REACT_APP_PINATA_API_SECRET,
           }
       })
       .then(function (response) {
@@ -44,20 +43,15 @@ const CompanyInfo = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [tokenURI,setTokenURI]= useState("");
 
-  async function requestAccount() {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-  }
-
-  
-
   async function mint_NFT(tokenURI,imageURI) {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.tronWeb !== 'undefined') {
       await requestAccount()
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(NFT_minter, NFTMinter.abi, signer);
-      const transaction = await contract.mint(tokenURI);
-      await transaction.wait();
+      let minterContract = await window.tronWeb.contract().at('TBCkkgQ1PRCKnxz4DPEHE1oKHM9Ws9Jewz');
+      let res = await minterContract.mint(tokenURI).send({
+        feeLimit:100_000_000,callValue: 1000000,
+        shouldPollResponse:true
+      });
+      console.log(res)
       console.log(`${tokenURI} has minted sucessfully.`);
       setTokenURI(imageURI)
     }
@@ -139,6 +133,7 @@ const CompanyInfo = () => {
             sx={{ backgroundColor: "#7165E3" }}
             variant="contained"
             size="large"
+            onClick={requestAccount}
           >
             Connect Wallet
           </Button>

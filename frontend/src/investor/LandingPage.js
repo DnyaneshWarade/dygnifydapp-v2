@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Button, Typography, Stack, Link } from "@mui/material";
 import Company from "./components/Company";
 import LockedValueChart from "./components/LockedValueChart";
+import { requestAccount } from "../components/navbar/NavBarHelper";
 
 const LandingPage = () => {
   return (
@@ -47,6 +48,7 @@ const LandingPage = () => {
             sx={{ backgroundColor: "#7165E3" }}
             variant="contained"
             size="large"
+            onClick={requestAccount}
           >
             Connect Wallet
           </Button>

@@ -62,15 +62,15 @@ const Transaction = () => {
   const onSubmitStake = (event) => {
     event.preventDefault();
     setValues({ ...values, deposit: "" });
-    const amount = ethers.utils.parseEther(values.deposit);
+    const amount = values.deposit;
     console.log("AMOUNT: " + amount);
     stake(amount)
       .then(() => {
         setWalletBalance(walletBalance - values.deposit);
         // setWithdrawlBal(withdrawlBal + amount);
       })
-      .catch(() => {
-        console.log("Can't deposit");
+      .catch(e => {
+        console.log(e);
       });
   };
 

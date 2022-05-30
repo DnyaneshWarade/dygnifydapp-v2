@@ -1,5 +1,5 @@
 export const requestAccount = async () => {
-  await window.ethereum.request({ method: "eth_requestAccounts" });
+  await window.tronLink.request({method: 'tron_requestAccounts'})
 };
 
 export const isConnected = async () => {

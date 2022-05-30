@@ -12,8 +12,12 @@ import {
   getWalletBal,
   getWithdrawBal,
 } from "../components/transaction/TransactionHelper";
-import { ethers } from "ethers";
 
+function gettronweb(){
+  if(window.tronWeb && window.tronWeb.defaultAddress.base58){
+      console.log("Yes, catch it:",window.tronWeb.defaultAddress.base58)
+  }
+}
 
 const Wallet = () => {
 
@@ -36,7 +40,7 @@ const Wallet = () => {
   useEffect(() => {
     getWalletBal()
       .then((data) => {
-        setWalletBalance(Number(data).toFixed(2));
+        setWalletBalance(Number(data));
       })
       .catch(() => {
         console.log("Error in getting wallet balance");
@@ -46,7 +50,7 @@ const Wallet = () => {
   useEffect(() => {
     getWithdrawBal()
       .then((data) => {
-        setWithdrawlBal(Number(data).toFixed(2));
+        setWithdrawlBal(Number(data));
       })
       .catch(() => {
         console.log("Error in getting withdrawl balance");
@@ -56,7 +60,7 @@ const Wallet = () => {
   useEffect(() => {
     getTotalYield()
       .then((data) => {
-        setTotalYield(Number(data).toFixed(2));
+        setTotalYield(Number(data));
       })
       .catch(() => {
         console.log("Error in getting total yield");
@@ -66,7 +70,7 @@ const Wallet = () => {
   const onSubmitApprove = (event) => {
     event.preventDefault();
     setValues({ ...values, deposit: "" });
-    const amount = ethers.utils.parseEther(values.deposit);
+    const amount = values.deposit;
     console.log("AMOUNT: " + amount);
     approve(amount)
       .then(() => {
@@ -79,12 +83,12 @@ const Wallet = () => {
   const onSubmitStake = (event) => {
     event.preventDefault();
     setValues({ ...values, deposit: "" });
-    const amount = ethers.utils.parseEther(values.deposit);
+    const amount = values.deposit;
     console.log("AMOUNT: " + amount);
     stake(amount)
       .then(() => {
         let temp = walletBalance - values.deposit
-        setWalletBalance(temp.toFixed(2));
+        setWalletBalance(temp);
         // setWithdrawlBal(withdrawlBal + amount);
       })
       .catch(() => {
@@ -96,14 +100,14 @@ const Wallet = () => {
     event.preventDefault();
     // console.log(values.withdraw);
     setValues({ ...values, withdraw: "" });
-    const amount = ethers.utils.parseEther(values.withdraw);
+    const amount = values.withdraw;
     unstake(amount)
       .then(() => {
         let temp = withdrawlBal - values.withdraw
         setWithdrawlBal(temp.toFixed(2));
       })
-      .catch(() => {
-        console.log("Can't withdraw");
+      .catch(e => {
+        console.log(e);
       });
   };
 
@@ -307,8 +311,8 @@ const Wallet = () => {
             label="Amount"
             variant="outlined"
             margin="normal"
-            // value={withdraw}
-            // onChange={handleChange("withdraw")}
+            value={withdraw}
+            onChange={handleChange("withdraw")}
           />
           {/* <TextField
             label="Amount"
@@ -340,7 +344,7 @@ const Wallet = () => {
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" ,marginRight:"35px"}}
           variant="contained"
           size="large"
-          onClick={onSubmitStake}
+          onClick={onSubmitUnstake}
         >
           Approve
         </Button>
@@ -348,6 +352,7 @@ const Wallet = () => {
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
           variant="contained"
           size="large"
+          onClick={onSubmitStake}
         >
           Deposit
         </Button>
@@ -355,7 +360,7 @@ const Wallet = () => {
           sx={{ backgroundColor: "#ffffff", color: "#7165E3" }}
           variant="contained"
           size="large"
-          onClick={yieldWithdraw==="" ? onSubmitUnstake : onSubmitYield}
+          onClick={onSubmitUnstake}
           style={{marginLeft:"160px"}}
         >
           Withdraw
