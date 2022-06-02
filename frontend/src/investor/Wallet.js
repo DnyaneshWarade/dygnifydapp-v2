@@ -189,8 +189,8 @@ const Wallet = () => {
         <Card
           sx={{
             mb: "5px",
-            maxWidth: 100,
-            py: "2px",
+            maxWidth: "100vw",
+            py: ".2rem",
             mx: "auto",
             display: "flex",
             flexDirection: "column",
@@ -198,7 +198,6 @@ const Wallet = () => {
           }}
         >
           <img
-            style={{ width: "88px", height: "77px" }}
             src="./indianWomen.png"
             alt=""
           />
